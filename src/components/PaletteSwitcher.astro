@@ -1,0 +1,227 @@
+---
+// Palette switcher — a single quiet disc (matching ThemeToggle) that opens a
+// popover of the 7 colour palettes. Mirrors the theme system: it flips
+// `data-palette` on <html>, persists to localStorage["palette"], and dispatches
+// a `palette:change` event so the mascots can re-tint. No-flash init lives in
+// BaseLayout. Periwinkle is the default (the bare :root), so it carries no
+// special selector — picking it just sets data-palette="periwinkle".
+//
+// Each swatch dot hard-codes its palette's light --accent, because only the
+// *active* palette's tokens are live; the others can't be read via var().
+// Labels are Swedish (user-facing); the slugs stay English since they're the
+// data-palette / localStorage / CSS selector keys.
+const PALETTES = [
+  { slug: "periwinkle", label: "Blåsippa",        swatch: "oklch(0.52 0.12 285)" },
+  { slug: "rose",       label: "Nyponros",        swatch: "oklch(0.555 0.115 14)" },
+  { slug: "sky",        label: "Nordisk himmel",  swatch: "oklch(0.52 0.13 245)" },
+  { slug: "terracotta", label: "Terrakotta",      swatch: "oklch(0.56 0.115 52)" },
+  { slug: "pistachio",  label: "Salvia",          swatch: "oklch(0.52 0.105 155)" },
+  { slug: "stone",      label: "Sandsten",        swatch: "oklch(0.51 0.028 75)" },
+  { slug: "slate",      label: "Skiffer",         swatch: "oklch(0.50 0.045 250)" },
+];
+---
+
+<div class="palette" data-palette-switcher>
+  <button
+    class="palette__trigger"
+    type="button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label="Välj färgtema"
+  >
+    <span class="palette__trigger-dot" aria-hidden="true"></span>
+  </button>
+
+  <div class="palette__menu" role="radiogroup" aria-label="Färgtema" hidden>
+    {
+      PALETTES.map((p) => (
+        <button
+          class="palette__option"
+          type="button"
+          role="radio"
+          aria-checked="false"
+          data-palette-option={p.slug}
+        >
+          <span class="palette__dot" style={`background:${p.swatch}`} aria-hidden="true" />
+          <span class="palette__label">{p.label}</span>
+          <svg
+            class="palette__check"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .palette {
+    position: relative;
+    display: inline-flex;
+  }
+  .palette__trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: var(--surface);
+    border: var(--hairline) solid var(--border);
+    border-radius: var(--radius-pill);
+    color: var(--muted);
+    transition: border-color 0.15s ease;
+  }
+  .palette__trigger:hover {
+    border-color: var(--border-strong);
+  }
+  .palette__trigger-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--foreground) 14%, transparent);
+  }
+
+  .palette__menu {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 180px;
+    padding: var(--space-1);
+    border: var(--hairline) solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    box-shadow: 0 12px 28px -12px oklch(0 0 0 / 0.35);
+  }
+  .palette__menu[hidden] {
+    display: none;
+  }
+
+  .palette__option {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1;
+    white-space: nowrap;
+    text-align: left;
+    transition: background 0.12s ease, color 0.12s ease;
+  }
+  .palette__option:hover {
+    background: var(--hover);
+    color: var(--foreground);
+  }
+  .palette__option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+  }
+  .palette__option[aria-checked="true"] {
+    color: var(--foreground);
+  }
+  .palette__dot {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    border-radius: var(--radius-pill);
+    box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--foreground) 18%, transparent);
+  }
+  .palette__label {
+    flex: 1;
+  }
+  .palette__check {
+    flex: none;
+    color: var(--accent);
+    opacity: 0;
+  }
+  .palette__option[aria-checked="true"] .palette__check {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>("[data-palette-switcher]");
+  const trigger = wrap?.querySelector<HTMLButtonElement>(".palette__trigger");
+  const menu = wrap?.querySelector<HTMLElement>(".palette__menu");
+  const options = Array.from(
+    wrap?.querySelectorAll<HTMLButtonElement>("[data-palette-option]") ?? []
+  );
+
+  if (wrap && trigger && menu) {
+    const DEFAULT = "periwinkle";
+    const current = () => document.documentElement.dataset.palette || DEFAULT;
+
+    const mark = (slug: string) => {
+      options.forEach((o) =>
+        o.setAttribute("aria-checked", String(o.dataset.paletteOption === slug))
+      );
+    };
+
+    const isOpen = () => !menu.hidden;
+    const open = () => {
+      menu.hidden = false;
+      trigger.setAttribute("aria-expanded", "true");
+      const active =
+        options.find((o) => o.getAttribute("aria-checked") === "true") ?? options[0];
+      active?.focus();
+    };
+    const close = (focusTrigger = false) => {
+      menu.hidden = true;
+      trigger.setAttribute("aria-expanded", "false");
+      if (focusTrigger) trigger.focus();
+    };
+
+    mark(current());
+
+    trigger.addEventListener("click", () => (isOpen() ? close() : open()));
+
+    options.forEach((opt, i) => {
+      opt.addEventListener("click", () => {
+        const slug = opt.dataset.paletteOption!;
+        document.documentElement.dataset.palette = slug;
+        try {
+          localStorage.setItem("palette", slug);
+        } catch (_) {}
+        mark(slug);
+        document.dispatchEvent(
+          new CustomEvent("palette:change", { detail: { palette: slug } })
+        );
+        close(true);
+      });
+      opt.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+        e.preventDefault();
+        const dir = e.key === "ArrowDown" ? 1 : -1;
+        options[(i + dir + options.length) % options.length].focus();
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen()) close(true);
+    });
+    document.addEventListener("click", (e) => {
+      if (isOpen() && !wrap.contains(e.target as Node)) close();
+    });
+  }
+</script>

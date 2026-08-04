@@ -118,6 +118,515 @@
   --modal-scrim: oklch(0.06 0.012 285 / 0.72);
 }
 
+/* ──────────────────────────────────────────────────────────────
+   Rose Petal — warm rose palette (data-palette="rose").
+   An orthogonal palette axis: data-palette picks the palette,
+   data-theme keeps doing light/dark. Activate with
+   <html data-palette="rose"> (add data-theme="dark" for the dark
+   variant). Darks are pushed toward black and lights toward white
+   for a touch more contrast than the source Rose Petal swatch.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="rose"] {
+  color-scheme: light;
+
+  /* Rose neutrals — near-white paper lifted toward white, ink pushed darker */
+  --background: oklch(0.994 0.004 14);
+  --surface: oklch(0.972 0.012 12);
+  --hover: oklch(0.945 0.016 12);
+  --foreground: oklch(0.185 0.017 14);
+  --muted: oklch(0.455 0.020 12);
+  --subtle: oklch(0.600 0.016 12);
+  --border: oklch(0.905 0.018 10);
+  --border-strong: oklch(0.840 0.020 10);
+
+  /* Primary — dusty rose deepened so white text clears AA (4.9:1) */
+  --accent: oklch(0.555 0.115 14);
+  --accent-hover: oklch(0.495 0.120 14);
+  --accent-fg: oklch(0.990 0.004 14);
+  --accent-soft: oklch(0.910 0.034 10);
+  --accent-soft-fg: oklch(0.430 0.105 14);
+
+  /* Category chip — monochrome rose; emergency is the one scarlet exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm to sit with the rose neutrals */
+  --status-open: oklch(0.5 0.123 136);
+  --status-soon: oklch(0.55 0.123 63);
+
+  /* Urgency — harmonized to rose: emergency holds its scarlet (hue 25, distinct
+     from the rose brand), urgent deepened so badge text clears AA, soft chips
+     stay warm to match the page */
+  --urgency-emergency: oklch(0.55 0.195 25);
+  --urgency-emergency-soft: oklch(0.965 0.038 22);
+  --urgency-urgent: oklch(0.515 0.147 37);
+  --urgency-urgent-soft: oklch(0.965 0.043 40);
+
+  /* Modal scrim — a rose-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.02 14 / 0.55);
+}
+
+/* Rose Petal — dark: near-black ground pushed darker, rose ink lifted whiter.
+   The original soft rose works here as the bright accent, dark text on top. */
+:root[data-palette="rose"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.145 0.008 8);
+  --surface: oklch(0.205 0.011 8);
+  --hover: oklch(0.245 0.013 8);
+  --foreground: oklch(0.975 0.005 16);
+  --muted: oklch(0.700 0.014 10);
+  --subtle: oklch(0.550 0.014 10);
+  --border: oklch(0.290 0.016 8);
+  --border-strong: oklch(0.390 0.018 8);
+
+  /* Bright rose that pops on the dark ground, dark text on top */
+  --accent: oklch(0.720 0.075 12);
+  --accent-hover: oklch(0.660 0.080 12);
+  --accent-fg: oklch(0.180 0.015 12);
+  --accent-soft: oklch(0.340 0.045 12);
+  --accent-soft-fg: oklch(0.860 0.050 12);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm, brightened for the dark ground */
+  --status-open: oklch(0.8 0.114 136);
+  --status-soon: oklch(0.84 0.114 63);
+
+  /* Urgency — harmonized to rose, brightened for the dark ground */
+  --urgency-emergency: oklch(0.7 0.16 25);
+  --urgency-emergency-soft: oklch(0.275 0.078 22);
+  --urgency-urgent: oklch(0.745 0.123 37);
+  --urgency-urgent-soft: oklch(0.285 0.068 40);
+
+  /* Deeper rose-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.012 12 / 0.72);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Nordic Sky — crisp cool-blue palette (data-palette="sky").
+   Same orthogonal axis: data-palette picks the palette, data-theme
+   keeps doing light/dark. Activate with <html data-palette="sky">
+   (add data-theme="dark" for the dark variant). Darks pushed toward
+   black and lights toward white for a touch more contrast than the
+   source swatch. The brand is blue, so the emergency red stays at its
+   standard hue — already distinct from the accent.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="sky"] {
+  color-scheme: light;
+
+  /* Cool-blue neutrals — paper lifted toward white, ink pushed darker */
+  --background: oklch(0.990 0.005 240);
+  --surface: oklch(0.965 0.012 240);
+  --hover: oklch(0.935 0.016 240);
+  --foreground: oklch(0.215 0.018 245);
+  --muted: oklch(0.490 0.022 245);
+  --subtle: oklch(0.615 0.018 245);
+  --border: oklch(0.900 0.018 240);
+  --border-strong: oklch(0.830 0.020 240);
+
+  /* Primary — sky blue deepened so white text clears AA (5.3:1) */
+  --accent: oklch(0.520 0.130 245);
+  --accent-hover: oklch(0.460 0.135 245);
+  --accent-fg: oklch(0.990 0.004 240);
+  --accent-soft: oklch(0.920 0.038 240);
+  --accent-soft-fg: oklch(0.440 0.110 245);
+
+  /* Category chip — monochrome blue; emergency is the one red exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned cool toward the blue neutrals */
+  --status-open: oklch(0.5 0.137 164);
+  --status-soon: oklch(0.55 0.137 82);
+
+  /* Urgency — harmonized to cool blue: soft chips tinted cool (a touch toward
+     crimson/violet), emergency/urgent deepened so badge text clears AA */
+  --urgency-emergency: oklch(0.55 0.215 8);
+  --urgency-emergency-soft: oklch(0.965 0.042 351);
+  --urgency-urgent: oklch(0.515 0.163 32);
+  --urgency-urgent-soft: oklch(0.965 0.047 18);
+
+  /* Modal scrim — a cool blue-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.02 245 / 0.55);
+}
+
+/* Nordic Sky — dark: near-black ground pushed darker, cool ink lifted whiter.
+   The source sky blue works here as the bright accent, dark text on top. */
+:root[data-palette="sky"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.150 0.009 245);
+  --surface: oklch(0.205 0.012 245);
+  --hover: oklch(0.245 0.014 245);
+  --foreground: oklch(0.975 0.005 240);
+  --muted: oklch(0.710 0.014 245);
+  --subtle: oklch(0.560 0.014 245);
+  --border: oklch(0.290 0.016 245);
+  --border-strong: oklch(0.390 0.018 245);
+
+  /* Bright sky blue that pops on the dark ground, dark text on top */
+  --accent: oklch(0.720 0.090 245);
+  --accent-hover: oklch(0.650 0.095 245);
+  --accent-fg: oklch(0.180 0.015 245);
+  --accent-soft: oklch(0.340 0.045 245);
+  --accent-soft-fg: oklch(0.860 0.060 245);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned cool, brightened for the dark ground */
+  --status-open: oklch(0.8 0.126 164);
+  --status-soon: oklch(0.84 0.126 82);
+
+  /* Urgency — harmonized to cool blue, brightened for the dark ground */
+  --urgency-emergency: oklch(0.7 0.173 8);
+  --urgency-emergency-soft: oklch(0.275 0.086 351);
+  --urgency-urgent: oklch(0.745 0.137 32);
+  --urgency-urgent-soft: oklch(0.285 0.076 18);
+
+  /* Deeper blue-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.012 245 / 0.72);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Soft Terracotta — warm clay palette (data-palette="terracotta").
+   Same orthogonal axis: data-palette picks the palette, data-theme
+   keeps doing light/dark. Activate with
+   <html data-palette="terracotta"> (add data-theme="dark" for dark).
+   Darks pushed toward black and lights toward white for a touch more
+   contrast than the source swatch. The brand is warm orange, so the
+   urgent signal is shifted to a hotter red-orange to clear the brand;
+   emergency stays the established red.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="terracotta"] {
+  color-scheme: light;
+
+  /* Warm clay neutrals — paper lifted toward white, ink pushed darker */
+  --background: oklch(0.991 0.006 60);
+  --surface: oklch(0.965 0.018 58);
+  --hover: oklch(0.935 0.022 56);
+  --foreground: oklch(0.225 0.020 50);
+  --muted: oklch(0.490 0.028 50);
+  --subtle: oklch(0.610 0.024 52);
+  --border: oklch(0.900 0.024 56);
+  --border-strong: oklch(0.830 0.028 56);
+
+  /* Primary — terracotta deepened so white text clears AA (4.7:1) */
+  --accent: oklch(0.560 0.115 52);
+  --accent-hover: oklch(0.500 0.120 52);
+  --accent-fg: oklch(0.992 0.004 60);
+  --accent-soft: oklch(0.910 0.045 58);
+  --accent-soft-fg: oklch(0.450 0.105 52);
+
+  /* Category chip — monochrome clay; emergency is the one red exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm to sit with the clay neutrals */
+  --status-open: oklch(0.5 0.13 136);
+  --status-soon: oklch(0.55 0.13 69);
+
+  /* Urgency — harmonized to warm clay: urgent holds its hotter red-orange (hue
+     33, distinct from the clay brand), emergency the established red; both
+     deepened so badge text clears AA, soft chips warm */
+  --urgency-emergency: oklch(0.55 0.205 16);
+  --urgency-emergency-soft: oklch(0.965 0.04 34);
+  --urgency-urgent: oklch(0.515 0.155 33);
+  --urgency-urgent-soft: oklch(0.965 0.045 44);
+
+  /* Modal scrim — a warm clay-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.02 50 / 0.55);
+}
+
+/* Soft Terracotta — dark: near-black ground pushed darker, warm ink lifted
+   whiter. The source terracotta works here as the bright accent, dark text. */
+:root[data-palette="terracotta"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.155 0.010 50);
+  --surface: oklch(0.210 0.014 50);
+  --hover: oklch(0.250 0.016 50);
+  --foreground: oklch(0.975 0.006 60);
+  --muted: oklch(0.715 0.016 55);
+  --subtle: oklch(0.560 0.016 55);
+  --border: oklch(0.300 0.018 50);
+  --border-strong: oklch(0.400 0.020 50);
+
+  /* Bright terracotta that pops on the dark ground, dark text on top */
+  --accent: oklch(0.740 0.110 58);
+  --accent-hover: oklch(0.675 0.115 58);
+  --accent-fg: oklch(0.190 0.018 55);
+  --accent-soft: oklch(0.360 0.050 52);
+  --accent-soft-fg: oklch(0.870 0.060 58);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm, brightened for the dark ground */
+  --status-open: oklch(0.8 0.12 136);
+  --status-soon: oklch(0.84 0.12 69);
+
+  /* Urgency — harmonized to warm clay, brightened for the dark ground */
+  --urgency-emergency: oklch(0.7 0.165 16);
+  --urgency-emergency-soft: oklch(0.275 0.082 34);
+  --urgency-urgent: oklch(0.745 0.13 33);
+  --urgency-urgent-soft: oklch(0.285 0.072 44);
+
+  /* Deeper clay-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.012 50 / 0.72);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Pistachio Mist — cool sage-green palette (data-palette="pistachio").
+   Same orthogonal axis: data-palette picks the palette, data-theme
+   keeps doing light/dark. Activate with
+   <html data-palette="pistachio"> (add data-theme="dark" for dark).
+   Darks pushed toward black and lights toward white for a touch more
+   contrast than the source swatch. The brand is green, so the
+   status-open dot is shifted to a deep emerald-teal to clear the
+   brand; emergency/urgent stay standard.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="pistachio"] {
+  color-scheme: light;
+
+  /* Cool sage neutrals — paper lifted toward white, ink pushed darker */
+  --background: oklch(0.990 0.005 155);
+  --surface: oklch(0.965 0.012 155);
+  --hover: oklch(0.935 0.016 155);
+  --foreground: oklch(0.215 0.016 155);
+  --muted: oklch(0.485 0.020 155);
+  --subtle: oklch(0.610 0.016 155);
+  --border: oklch(0.900 0.016 155);
+  --border-strong: oklch(0.830 0.018 155);
+
+  /* Primary — sage deepened so white text clears AA (5.1:1) */
+  --accent: oklch(0.520 0.105 155);
+  --accent-hover: oklch(0.460 0.110 155);
+  --accent-fg: oklch(0.990 0.004 155);
+  --accent-soft: oklch(0.910 0.040 155);
+  --accent-soft-fg: oklch(0.440 0.095 155);
+
+  /* Category chip — monochrome sage; emergency is the one red exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open holds its emerald-teal (hue 168, distinct from the green
+     brand); soon leaned to sit with the sage neutrals */
+  --status-open: oklch(0.5 0.12 168);
+  --status-soon: oklch(0.55 0.12 82);
+
+  /* Urgency — harmonized to sage green: emergency/urgent kept warm (a
+     complementary pop against green) and deepened so badge text clears AA */
+  --urgency-emergency: oklch(0.55 0.189 18);
+  --urgency-emergency-soft: oklch(0.965 0.037 35);
+  --urgency-urgent: oklch(0.515 0.143 48);
+  --urgency-urgent-soft: oklch(0.965 0.041 62);
+
+  /* Modal scrim — a cool green-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.02 155 / 0.55);
+}
+
+/* Pistachio Mist — dark: near-black ground pushed darker, sage ink lifted
+   whiter. The source sage works here as the bright accent, dark text. */
+:root[data-palette="pistachio"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.150 0.008 155);
+  --surface: oklch(0.205 0.011 155);
+  --hover: oklch(0.245 0.013 155);
+  --foreground: oklch(0.975 0.005 155);
+  --muted: oklch(0.710 0.013 155);
+  --subtle: oklch(0.555 0.013 155);
+  --border: oklch(0.290 0.015 155);
+  --border-strong: oklch(0.390 0.017 155);
+
+  /* Bright sage that pops on the dark ground, dark text on top */
+  --accent: oklch(0.730 0.085 155);
+  --accent-hover: oklch(0.665 0.090 155);
+  --accent-fg: oklch(0.185 0.014 155);
+  --accent-soft: oklch(0.345 0.045 155);
+  --accent-soft-fg: oklch(0.860 0.055 155);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open = emerald-teal, soon leaned; brightened for dark ground */
+  --status-open: oklch(0.8 0.11 168);
+  --status-soon: oklch(0.84 0.11 82);
+
+  /* Urgency — harmonized to sage green, brightened for the dark ground */
+  --urgency-emergency: oklch(0.7 0.16 18);
+  --urgency-emergency-soft: oklch(0.275 0.075 35);
+  --urgency-urgent: oklch(0.745 0.12 48);
+  --urgency-urgent-soft: oklch(0.285 0.066 62);
+
+  /* Deeper green-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.012 155 / 0.72);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Stone Linen — warm near-neutral taupe palette
+   (data-palette="stone"). Same orthogonal axis: data-palette picks
+   the palette, data-theme keeps doing light/dark. Activate with
+   <html data-palette="stone"> (add data-theme="dark" for dark).
+   Darks pushed toward black and lights toward white for a touch more
+   contrast than the source swatch. The brand is a desaturated warm
+   gray, so it clears every colored signal — all signals stay standard.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="stone"] {
+  color-scheme: light;
+
+  /* Warm taupe neutrals — paper lifted toward white, ink pushed darker */
+  --background: oklch(0.991 0.004 75);
+  --surface: oklch(0.965 0.008 75);
+  --hover: oklch(0.935 0.010 72);
+  --foreground: oklch(0.225 0.010 70);
+  --muted: oklch(0.490 0.012 70);
+  --subtle: oklch(0.610 0.010 72);
+  --border: oklch(0.900 0.009 72);
+  --border-strong: oklch(0.830 0.010 72);
+
+  /* Primary — taupe deepened so white text clears AA (5.6:1) */
+  --accent: oklch(0.510 0.028 75);
+  --accent-hover: oklch(0.450 0.030 75);
+  --accent-fg: oklch(0.992 0.003 75);
+  --accent-soft: oklch(0.905 0.015 75);
+  --accent-soft-fg: oklch(0.440 0.025 75);
+
+  /* Category chip — monochrome taupe; emergency is the one red exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm to sit with the taupe neutrals */
+  --status-open: oklch(0.5 0.101 136);
+  --status-soon: oklch(0.55 0.101 72);
+
+  /* Urgency — harmonized to muted taupe: chroma dialed back to match the quiet
+     palette, emergency/urgent deepened so badge text clears AA, soft chips warm */
+  --urgency-emergency: oklch(0.55 0.16 17);
+  --urgency-emergency-soft: oklch(0.965 0.031 35);
+  --urgency-urgent: oklch(0.515 0.121 44);
+  --urgency-urgent-soft: oklch(0.965 0.035 58);
+
+  /* Modal scrim — a warm neutral-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.012 70 / 0.55);
+}
+
+/* Stone Linen — dark: near-black ground pushed darker, warm ink lifted
+   whiter. The source taupe works here as the bright accent, dark text. */
+:root[data-palette="stone"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.150 0.006 70);
+  --surface: oklch(0.205 0.008 70);
+  --hover: oklch(0.245 0.010 70);
+  --foreground: oklch(0.975 0.004 75);
+  --muted: oklch(0.710 0.009 72);
+  --subtle: oklch(0.555 0.009 72);
+  --border: oklch(0.290 0.010 70);
+  --border-strong: oklch(0.390 0.012 70);
+
+  /* Bright taupe that lifts off the dark ground, dark text on top */
+  --accent: oklch(0.730 0.025 75);
+  --accent-hover: oklch(0.665 0.027 75);
+  --accent-fg: oklch(0.185 0.010 75);
+  --accent-soft: oklch(0.345 0.020 72);
+  --accent-soft-fg: oklch(0.860 0.022 75);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned warm, brightened for the dark ground */
+  --status-open: oklch(0.8 0.094 136);
+  --status-soon: oklch(0.84 0.094 72);
+
+  /* Urgency — harmonized to muted taupe (chroma dialed back), brightened for dark */
+  --urgency-emergency: oklch(0.7 0.16 17);
+  --urgency-emergency-soft: oklch(0.275 0.064 35);
+  --urgency-urgent: oklch(0.745 0.101 44);
+  --urgency-urgent-soft: oklch(0.285 0.056 58);
+
+  /* Deeper neutral-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.01 70 / 0.72);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Slate Overcast — cool blue-gray palette (data-palette="slate").
+   Same orthogonal axis: data-palette picks the palette, data-theme
+   keeps doing light/dark. Activate with
+   <html data-palette="slate"> (add data-theme="dark" for dark).
+   Darks pushed toward black and lights toward white for a touch more
+   contrast than the source swatch. The source uses a lighter primary
+   in dark mode, kept here. The brand is a desaturated slate, so it
+   clears every colored signal — all signals stay standard.
+   ────────────────────────────────────────────────────────────── */
+:root[data-palette="slate"] {
+  color-scheme: light;
+
+  /* Cool slate neutrals — paper lifted toward white, ink pushed darker */
+  --background: oklch(0.990 0.004 250);
+  --surface: oklch(0.965 0.008 250);
+  --hover: oklch(0.935 0.010 250);
+  --foreground: oklch(0.220 0.012 250);
+  --muted: oklch(0.490 0.014 250);
+  --subtle: oklch(0.610 0.012 250);
+  --border: oklch(0.900 0.010 250);
+  --border-strong: oklch(0.830 0.012 250);
+
+  /* Primary — slate deepened so white text clears AA (5.8:1) */
+  --accent: oklch(0.500 0.045 250);
+  --accent-hover: oklch(0.440 0.048 250);
+  --accent-fg: oklch(0.990 0.004 250);
+  --accent-soft: oklch(0.905 0.020 250);
+  --accent-soft-fg: oklch(0.430 0.040 250);
+
+  /* Category chip — monochrome slate; emergency is the one red exception */
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned cool toward the slate neutrals */
+  --status-open: oklch(0.5 0.111 164);
+  --status-soon: oklch(0.55 0.111 82);
+
+  /* Urgency — harmonized to cool slate: soft chips tinted cool, chroma dialed
+     back for the muted palette, emergency/urgent deepened so badge text clears AA */
+  --urgency-emergency: oklch(0.55 0.174 8);
+  --urgency-emergency-soft: oklch(0.965 0.034 351);
+  --urgency-urgent: oklch(0.515 0.132 32);
+  --urgency-urgent-soft: oklch(0.965 0.038 18);
+
+  /* Modal scrim — a cool slate-dark dim behind dialogs */
+  --modal-scrim: oklch(0.18 0.015 250 / 0.55);
+}
+
+/* Slate Overcast — dark: near-black ground pushed darker, cool ink lifted
+   whiter. The source's lighter slate works here as the bright accent. */
+:root[data-palette="slate"][data-theme="dark"] {
+  color-scheme: dark;
+
+  --background: oklch(0.150 0.007 250);
+  --surface: oklch(0.205 0.009 250);
+  --hover: oklch(0.245 0.011 250);
+  --foreground: oklch(0.975 0.004 250);
+  --muted: oklch(0.710 0.011 250);
+  --subtle: oklch(0.555 0.011 250);
+  --border: oklch(0.290 0.012 250);
+  --border-strong: oklch(0.390 0.014 250);
+
+  /* Bright slate that lifts off the dark ground, dark text on top */
+  --accent: oklch(0.730 0.045 250);
+  --accent-hover: oklch(0.665 0.048 250);
+  --accent-fg: oklch(0.185 0.012 250);
+  --accent-soft: oklch(0.345 0.030 250);
+  --accent-soft-fg: oklch(0.860 0.040 250);
+
+  --cat-red: var(--urgency-emergency-soft);  --cat-red-fg: var(--urgency-emergency);
+
+  /* Status dots — open/soon leaned cool, brightened for the dark ground */
+  --status-open: oklch(0.8 0.102 164);
+  --status-soon: oklch(0.84 0.102 82);
+
+  /* Urgency — harmonized to cool slate, brightened for the dark ground */
+  --urgency-emergency: oklch(0.7 0.16 8);
+  --urgency-emergency-soft: oklch(0.275 0.07 351);
+  --urgency-urgent: oklch(0.745 0.111 32);
+  --urgency-urgent-soft: oklch(0.285 0.061 18);
+
+  /* Deeper slate-dark dim behind the floating modal */
+  --modal-scrim: oklch(0.06 0.012 250 / 0.72);
+}
+
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;

@@ -1,9 +1,11 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
+import PaletteSwitcher from "./PaletteSwitcher.astro";
 
-// Shared sticky topbar for every page (homepage included). Brand + primary
-// nav + theme toggle + chat CTA. Below 560px the text links collapse into a
-// dropdown disclosure behind the burger so they stay reachable on phones.
+// Shared sticky topbar for every page (homepage included). The two wordmark
+// links — Stödlinjer (home) and Artiklar — sit together on the left, doubling
+// as both brand and primary nav; the active page carries an accent underline.
+// The palette switcher, theme toggle and chat CTA cluster on the right.
 const path = Astro.url.pathname;
 const isHome = path === "/";
 const isArticles = path.startsWith("/artiklar");
@@ -11,32 +13,15 @@ const isArticles = path.startsWith("/artiklar");
 
 <header class="topbar">
   <div class="topbar__inner container--wide">
-    <a class="brand" href="/">Stödlinjer</a>
+    <nav class="topbar__left" aria-label="Huvudmeny">
+      <a class="nav__brand" href="/" aria-current={isHome ? "page" : undefined}>Stödlinjer</a>
+      <span class="nav__sep" aria-hidden="true">/</span>
+      <a class="nav__brand" href="/artiklar/" aria-current={isArticles ? "page" : undefined}>Artiklar</a>
+    </nav>
     <div class="nav">
-      <nav class="nav__links" id="primary-nav" aria-label="Huvudmeny">
-        <a class="nav__link" href="/#stodlinjer" aria-current={isHome ? "page" : undefined}>Stödlinjer</a>
-        <a class="nav__link" href="/artiklar/" aria-current={isArticles ? "page" : undefined}>Artiklar</a>
-      </nav>
-      <span class="nav__sep" aria-hidden="true"></span>
+      <PaletteSwitcher />
       <ThemeToggle />
       <a class="nav__cta" href="/chatt/">Fråga Stödkompassen</a>
-      <button
-        class="nav__burger"
-        type="button"
-        aria-controls="primary-nav"
-        aria-expanded="false"
-      >
-        <span class="sr-only">Meny</span>
-        <svg class="nav__burger-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="4" y1="7" x2="20" y2="7" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="17" x2="20" y2="17" />
-        </svg>
-        <svg class="nav__burger-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <line x1="6" y1="6" x2="18" y2="18" />
-          <line x1="18" y1="6" x2="6" y2="18" />
-        </svg>
-      </button>
     </div>
   </div>
 </header>
@@ -59,12 +44,18 @@ const isArticles = path.startsWith("/artiklar");
     justify-content: space-between;
     padding-block: var(--space-4);
   }
-  .brand {
+  /* The two wordmark links travel together on the left, reading as a unit. */
+  .topbar__left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .nav__sep {
     font-family: var(--font-serif);
     font-size: 1.375rem;
-    font-weight: 500; /* Book — holds the serif's contrast at this size */
-    letter-spacing: -0.005em;
-    color: var(--foreground);
+    font-weight: 300;
+    color: var(--muted);
+    user-select: none;
   }
   .nav {
     display: flex;
@@ -72,37 +63,33 @@ const isArticles = path.startsWith("/artiklar");
     gap: var(--space-4);
     font-size: 0.9375rem;
   }
-  .nav__links {
-    display: flex;
-    align-items: center;
-    gap: var(--space-4);
-  }
-  .nav__link {
+  .nav__brand {
     position: relative;
-    color: var(--muted);
-    transition: color 0.15s ease;
-  }
-  .nav__link:hover {
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    font-weight: 500; /* Book — holds the serif's contrast at this size */
+    letter-spacing: -0.005em;
     color: var(--foreground);
   }
-  .nav__link[aria-current="page"] {
-    color: var(--foreground);
-  }
-  .nav__link[aria-current="page"]::after {
+  /* One underline rule for both states: invisible by default, a faint accent
+     preview on hover, and the full accent bar on the active page. */
+  .nav__brand::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -5px;
+    bottom: -4px;
     height: 2px;
     border-radius: 2px;
     background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.15s ease;
   }
-  /* Hairline divider between navigation and the utility controls / CTA. */
-  .nav__sep {
-    width: var(--hairline);
-    height: 20px;
-    background: var(--border);
+  .nav__brand:hover::after {
+    opacity: 0.4;
+  }
+  .nav__brand[aria-current="page"]::after {
+    opacity: 1;
   }
   .nav__cta {
     padding: var(--space-2) var(--space-4);
@@ -116,97 +103,15 @@ const isArticles = path.startsWith("/artiklar");
   .nav__cta:hover {
     background: var(--accent-hover);
   }
-  /* Mobile disclosure trigger — hidden until the layout gets tight. */
-  .nav__burger {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: var(--hairline) solid var(--border);
-    border-radius: var(--radius-pill);
-    background: var(--surface);
-    color: var(--muted);
-    transition: color 0.15s ease, border-color 0.15s ease;
-  }
-  .nav__burger:hover {
-    color: var(--foreground);
-    border-color: var(--border-strong);
-  }
-  .nav__burger-close {
-    display: none;
-  }
-  .nav__burger[aria-expanded="true"] .nav__burger-menu {
-    display: none;
-  }
-  .nav__burger[aria-expanded="true"] .nav__burger-close {
-    display: block;
-  }
-
-  /* On narrow screens, fold the text links into a dropdown panel behind the
-     burger instead of dropping them entirely — they stay reachable. */
+  /* Only two short wordmarks now, so they stay inline at every width — just
+     scale them down so they share the bar with the right-hand cluster. */
   @media (max-width: 560px) {
+    .nav {
+      gap: var(--space-2);
+    }
+    .nav__brand,
     .nav__sep {
-      display: none;
-    }
-    .nav__burger {
-      display: inline-flex;
-    }
-    .nav__links {
-      position: absolute;
-      top: calc(100% + var(--space-2));
-      right: var(--space-6);
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--space-1);
-      min-width: 200px;
-      padding: var(--space-2);
-      border: var(--hairline) solid var(--border);
-      border-radius: var(--radius-lg);
-      background: var(--surface);
-      box-shadow: 0 14px 32px -14px color-mix(in oklch, var(--foreground) 40%, transparent);
-      display: none;
-    }
-    .topbar[data-open] .nav__links {
-      display: flex;
-    }
-    .nav__link {
-      padding: var(--space-2) var(--space-3);
-      border-radius: var(--radius-md);
-    }
-    .nav__link:hover {
-      background: var(--hover);
-    }
-    .nav__link[aria-current="page"] {
-      color: var(--accent-soft-fg);
-      background: var(--accent-soft);
-    }
-    .nav__link[aria-current="page"]::after {
-      display: none;
+      font-size: 1.0625rem;
     }
   }
 </style>
-
-<script>
-  const header = document.querySelector<HTMLElement>(".topbar");
-  const burger = header?.querySelector<HTMLButtonElement>(".nav__burger");
-  if (header && burger) {
-    const close = () => {
-      header.removeAttribute("data-open");
-      burger.setAttribute("aria-expanded", "false");
-    };
-    burger.addEventListener("click", () => {
-      const open = header.toggleAttribute("data-open");
-      burger.setAttribute("aria-expanded", String(open));
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") close();
-    });
-    document.addEventListener("click", (e) => {
-      if (header.hasAttribute("data-open") && !header.contains(e.target as Node)) close();
-    });
-    header
-      .querySelectorAll(".nav__link")
-      .forEach((link) => link.addEventListener("click", close));
-  }
-</script>

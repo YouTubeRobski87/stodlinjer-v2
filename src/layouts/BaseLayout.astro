@@ -36,17 +36,20 @@ const showLauncher = !Astro.url.pathname.startsWith("/chatt");
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
     <script is:inline>
-      // Set theme before paint to avoid a flash. Honour saved choice,
-      // else the OS preference.
+      // Set theme + palette before paint to avoid a flash. Theme honours the
+      // saved choice, else the OS preference. Palette defaults to periwinkle
+      // (the bare :root), so it's only set when a non-default is saved.
       (function () {
+        const root = document.documentElement;
         try {
-          const saved = localStorage.getItem("theme");
-          const theme =
-            saved ||
+          const savedTheme = localStorage.getItem("theme");
+          root.dataset.theme =
+            savedTheme ||
             (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-          document.documentElement.dataset.theme = theme;
+          const savedPalette = localStorage.getItem("palette");
+          if (savedPalette) root.dataset.palette = savedPalette;
         } catch (_) {
-          document.documentElement.dataset.theme = "light";
+          root.dataset.theme = "light";
         }
       })();
     </script>

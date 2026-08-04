@@ -72,12 +72,31 @@ const greeting =
             hour >= 22 || hour < 6
               ? "sleeping"
               : poses[Math.floor(Math.random() * poses.length)];
-          var src = "/imgs/web/stodkompassen-" + pose + ".webp";
-          document
-            .querySelectorAll(".sk__welcome-art[data-sk-mascot]")
-            .forEach(function (el) {
-              el.src = src;
-            });
+
+          // Keep the same pose, but point it at the active palette's colour
+          // (falling back to the root art if a file is missing). Re-tints on
+          // palette:change without re-rolling the pose.
+          function paint(palette) {
+            var fallback = "/imgs/web/stodkompassen-" + pose + ".webp";
+            var src =
+              !palette || palette === "periwinkle"
+                ? fallback
+                : "/imgs/web/" + palette + "/stodkompassen-" + pose + ".webp";
+            document
+              .querySelectorAll(".sk__welcome-art[data-sk-mascot]")
+              .forEach(function (el) {
+                el.onerror = function () {
+                  el.onerror = null;
+                  el.src = fallback;
+                };
+                el.src = src;
+              });
+          }
+
+          paint(document.documentElement.dataset.palette);
+          document.addEventListener("palette:change", function (e) {
+            paint(e.detail && e.detail.palette);
+          });
         })();
       </script>
       <p class="sk__welcome-text">{greeting}</p>

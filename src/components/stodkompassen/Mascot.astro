@@ -2,6 +2,11 @@
 // Stödkompassen mascot avatar — the friendly nurse-bot, rendered from a small
 // WebP crop (public/imgs/web/). Decorative: the header and launcher already
 // name it in adjacent text. Place inside a `.sk-avatar` wrapper.
+//
+// The default `src` is the root (periwinkle) art, which also serves as the
+// no-JS fallback. When a non-default palette is active the script below swaps
+// each crop to the matching colour (`/imgs/web/<palette>/…`) on load and on
+// `palette:change`, falling back to the root art if a file is ever missing.
 interface Props {
   size?: number;
 }
@@ -11,9 +16,44 @@ const { size = 30 } = Astro.props;
 <img
   class="sk-mascot"
   src="/imgs/web/stodkompassen-head.webp"
+  data-sk-pose="head"
   width={size}
   height={size}
   alt=""
   aria-hidden="true"
   decoding="async"
 />
+
+<script>
+  // Tint every fixed-pose mascot crop to the active palette. Bundled once even
+  // when the component renders multiple times (header + launcher).
+  const ROOT = "/imgs/web";
+
+  function tint(img: HTMLImageElement) {
+    const pose = img.dataset.skPose;
+    if (!pose) return;
+    const palette = document.documentElement.dataset.palette || "periwinkle";
+    const fallback = `${ROOT}/stodkompassen-${pose}.webp`;
+    // Periwinkle is the default look and lives at the root, so skip the extra
+    // folder hop.
+    if (palette === "periwinkle") {
+      img.onerror = null;
+      img.src = fallback;
+      return;
+    }
+    img.onerror = () => {
+      img.onerror = null;
+      img.src = fallback;
+    };
+    img.src = `${ROOT}/${palette}/stodkompassen-${pose}.webp`;
+  }
+
+  function tintAll() {
+    document
+      .querySelectorAll<HTMLImageElement>(".sk-mascot[data-sk-pose]")
+      .forEach(tint);
+  }
+
+  tintAll();
+  document.addEventListener("palette:change", tintAll);
+</script>

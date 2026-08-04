@@ -9,4 +9,4 @@ dist/
 .superpowers/
 docs/
 .claude/
-package-lock.json
+package-lock.json.env

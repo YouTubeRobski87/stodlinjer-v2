@@ -50,6 +50,15 @@ const REFUSAL_TEXT =
 const ERROR_TEXT =
   "Något gick fel på vägen och jag kunde inte svara just nu. Vid akut fara för liv, ring 112. Du kan alltid ringa Självmordslinjen på 90 101 (dygnet runt) eller bläddra bland stödlinjerna här på sidan.";
 
+// Env i Astro kommer från två håll, och bara ett av dem fungerar per miljö:
+// `astro dev` laddar .env till import.meta.env (INTE till process.env), medan
+// Render sätter riktiga miljövariabler som bara syns i process.env. Läs därför
+// alltid båda — annars fungerar chatten i produktion men aldrig lokalt.
+const env = (name: string): string | undefined =>
+  (import.meta.env[name] as string | undefined) ?? process.env[name];
+
+const apiKey = env("ANTHROPIC_API_KEY");
+
 type Msg = { role: "user" | "assistant"; content: string };
 
 function parseMessages(value: unknown): Msg[] | null {
@@ -75,7 +84,10 @@ const json = (status: number, body: Record<string, unknown>) =>
   });
 
 export const POST: APIRoute = async ({ request, clientAddress }) => {
-  if (!process.env.ANTHROPIC_API_KEY) {
+  if (!apiKey) {
+    console.error(
+      "[chat] ANTHROPIC_API_KEY saknas — satt varken i .env (dev) eller i miljön (Render).",
+    );
     return json(503, { error: "chat_unavailable" });
   }
   if (!sameOrigin(request)) {
@@ -113,8 +125,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const directive = crisisDirective(crisis);
 
   const system = await buildSystemPrompt(uiMode);
-  const model = process.env.STODKOMPASSEN_MODEL || "claude-opus-4-8";
-  const client = new Anthropic();
+  const model = env("STODKOMPASSEN_MODEL") || "claude-opus-5";
+  // apiKey skickas in explicit: SDK:ns egen fallback läser bara process.env,
+  // som är tom under `astro dev`.
+  const client = new Anthropic({ apiKey });
 
   // System blocks: the (optional) crisis directive first as a small, NON-cached
   // block, then the stable catalog prompt as the cached block. Keeping the
@@ -140,6 +154,11 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         const stream = client.messages.stream({
           model,
           max_tokens: MAX_OUTPUT_TOKENS,
+          // Opus 5 tänker som default, och max_tokens är ett tak för tänkande
+          // PLUS svarstext. Med vår snäva budget (och ett svar som ska komma
+          // snabbt, till någon som mår dåligt) stänger vi av det explicit.
+          // Tillåtet så länge effort är "high" eller lägre — vi använder default.
+          thinking: { type: "disabled" },
           // Crisis directive (if any) + stable, cached catalog block.
           system: systemBlocks,
           messages,
@@ -156,8 +175,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
         if (stopReason === "refusal") send("notice", { text: REFUSAL_TEXT });
         send("done", {});
-      } catch {
-        // No message content is logged (privacy-first).
+      } catch (err) {
+        // Aldrig meddelandeinnehåll (privacy-first) — men feltyp och status
+        // måste synas, annars går ett 401/404 från API:et inte att skilja
+        // från vilket annat fel som helst.
+        const status = (err as { status?: number })?.status;
+        const name = (err as { name?: string })?.name ?? "UnknownError";
+        console.error(`[chat] Anthropic-anrop misslyckades: ${name}${status ? ` (HTTP ${status})` : ""} — modell: ${model}`);
         send("error", { text: ERROR_TEXT });
       } finally {
         controller.close();
