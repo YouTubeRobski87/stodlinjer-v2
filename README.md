@@ -112,4 +112,31 @@ endpoint, so it will switch `astro.config.mjs` from static to an on-demand
 (`hybrid`) output with an adapter — see the note in
 [`astro.config.mjs`](astro.config.mjs).
 
-This is a private project. © Johanna Fagerås.
+This is a private project. © Johanna Fagerås och Robert Claesson
+
+## Drift / Deployment
+
+Stödlinjer v2 live:  
+https://www.stodlinjer.se/
+
+Render service:  
+stodlinjer-v2-node
+
+Repo:  
+YouTubeRobski87/stodlinjer-v2
+
+Branch:  
+main
+
+Runtime:  
+Node
+
+Build command:  
+npm install && npm run build
+
+Start command:  
+node ./dist/server/entry.mjs
+
+Environment variables i Render:  
+HOST=0.0.0.0  
+ANTHROPIC_API_KEY finns i Render
