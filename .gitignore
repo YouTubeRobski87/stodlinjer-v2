@@ -10,3 +10,4 @@ dist/
 docs/
 .claude/
 package-lock.json.env
+.env
