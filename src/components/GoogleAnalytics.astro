@@ -1,0 +1,36 @@
+---
+// Google Analytics 4 (gtag.js).
+//
+// The measurement ID comes from PUBLIC_GA_MEASUREMENT_ID. Astro inlines
+// PUBLIC_* variables at build time, so the value must be present when
+// `npm run build` runs — in local .env and in the Render dashboard.
+//
+// Renders nothing when the variable is unset, which keeps local dev and
+// preview builds out of the production property.
+const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+---
+
+{
+  measurementId && (
+    <>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`}
+      />
+      <script is:inline define:vars={{ measurementId }}>
+        // define:vars wraps this in an IIFE, so gtag is assigned to window
+        // explicitly — a bare `function gtag()` would stay local and later
+        // event tracking calling window.gtag(...) would fail.
+        window.dataLayer = window.dataLayer || [];
+        window.gtag =
+          window.gtag ||
+          function () {
+            window.dataLayer.push(arguments);
+          };
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId);
+      </script>
+    </>
+  )
+}

@@ -4,6 +4,7 @@ import "../styles/icons.css";
 import "../styles/global.css";
 import Launcher from "../components/stodkompassen/Launcher.astro";
 import AcuteStrip from "../components/AcuteStrip.astro";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 interface Props {
   title: string;
@@ -38,6 +39,8 @@ const ogImageUrl = Astro.props.ogImage ? new URL(Astro.props.ogImage, Astro.url)
          Söhne / Söhne Mono via @import in global.css); preconnect so the
          woff2 requests start sooner. -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <GoogleAnalytics />
 
     <script is:inline>
       // Set theme + palette before paint to avoid a flash. Theme honours the
