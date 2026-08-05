@@ -31,6 +31,21 @@ npm run check    # astro check — TypeScript + content-schema validation
 [`src/content.config.ts`](src/content.config.ts). Run it before committing — a
 malformed support line or article frontmatter will fail the build.
 
+## Performance audit
+
+Build the site, then run the baseline homepage audit:
+
+```bash
+npm run build
+npm run perf:audit
+```
+
+The audit reports generated homepage HTML and DOM approximations, headings,
+dialogs, JSON-LD scripts, and the largest built JavaScript/CSS assets. It is
+informational only; it does not enforce budgets or fail builds based on size.
+The current known issue is that hidden support-line detail panels dominate the
+homepage HTML, so this command records a baseline before any rendering changes.
+
 ## Routes
 
 | Route | Source | What it is |

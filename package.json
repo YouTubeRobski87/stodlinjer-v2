@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "perf:audit": "node scripts/performance-audit.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",
