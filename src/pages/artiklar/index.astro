@@ -5,6 +5,8 @@ import SiteHeader from "../../components/SiteHeader.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
 import Icon from "../../components/Icon.astro";
 import { ARTICLE_COLLECTIONS } from "../../lib/articleCollections";
+import StructuredData from "../../components/StructuredData.astro";
+import { absoluteUrl, breadcrumbList } from "../../lib/structuredData";
 
 // Landing for the article section. One card per topic collection, with a live
 // count of published articles in each.
@@ -14,12 +16,32 @@ const countBySlug = new Map<string, number>();
 for (const a of articles) {
   countBySlug.set(a.data.collection, (countBySlug.get(a.data.collection) ?? 0) + 1);
 }
+const path = "/artiklar/";
+const url = absoluteUrl(path);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${url}#collectionpage`,
+      name: "Artiklar",
+      description: "Texter om psykisk hälsa, kriser, beroende, sorg, rättigheter och att vara anhörig.",
+      url,
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    { "@id": `${url}#breadcrumb`, ...breadcrumbList([
+      { name: "Stödlinjer", path: "/" },
+      { name: "Artiklar", path },
+    ]) },
+  ],
+};
 ---
 
 <BaseLayout
   title="Artiklar | Stödlinjer"
   description="Texter om psykisk hälsa, kriser, beroende, sorg, rättigheter och att vara anhörig – skrivna för att förstå och orka."
 >
+  <StructuredData data={structuredData} />
   <SiteHeader />
 
   <main id="main" class="page container--wide">

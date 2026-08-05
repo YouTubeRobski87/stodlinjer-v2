@@ -10,6 +10,8 @@ import Icon from "../components/Icon.astro";
 import categoriesData from "../content/categories.json";
 import { detailHours, closedDays, type Hours } from "../lib/hours";
 import { facetLabel } from "../lib/labels";
+import StructuredData from "../components/StructuredData.astro";
+import { absoluteUrl, SITE_NAME, SITE_URL, siteOrganization } from "../lib/structuredData";
 
 const categories = categoriesData;
 const catById = Object.fromEntries(categories.map((c) => [c.id, c]));
@@ -26,6 +28,20 @@ const lines = (await getCollection("supportLines", (e) => e.data.status === "act
   });
 
 type Line = (typeof lines)[number];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: absoluteUrl(),
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+    siteOrganization(),
+  ],
+};
 
 // The headline contact (phone first, else the first method that can be
 // acted on) drives the foot value, its icon, the link, and the hours
@@ -67,6 +83,7 @@ function cardPropsOf(line: Line) {
 ---
 
 <BaseLayout title="Stödlinjer Sverige | Hitta rätt hjälp direkt">
+  <StructuredData data={structuredData} />
   <SiteHeader />
 
   <main id="main">

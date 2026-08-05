@@ -10,6 +10,8 @@ import {
   ARTICLE_COLLECTIONS,
   getArticleCollection,
 } from "../../../lib/articleCollections";
+import StructuredData from "../../../components/StructuredData.astro";
+import { absoluteUrl, breadcrumbList } from "../../../lib/structuredData";
 
 // One page per topic collection, listing its articles (newest first).
 export const getStaticPaths = (async () => {
@@ -26,9 +28,30 @@ export const getStaticPaths = (async () => {
 const { collection } = Astro.params;
 const { entries } = Astro.props;
 const meta = getArticleCollection(collection);
+const path = `/artiklar/${meta.slug}/`;
+const url = absoluteUrl(path);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${url}#collectionpage`,
+      name: meta.label,
+      description: meta.description,
+      url,
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    { "@id": `${url}#breadcrumb`, ...breadcrumbList([
+      { name: "Stödlinjer", path: "/" },
+      { name: "Artiklar", path: "/artiklar/" },
+      { name: meta.label, path },
+    ]) },
+  ],
+};
 ---
 
 <BaseLayout title={`${meta.label} | Artiklar`} description={meta.description}>
+  <StructuredData data={structuredData} />
   <SiteHeader />
 
   <main id="main" class="page container--wide">

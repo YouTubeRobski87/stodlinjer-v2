@@ -1,0 +1,19 @@
+---
+interface Props {
+  data: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { data } = Astro.props;
+
+// JSON-LD is embedded in a raw-text HTML element. Escaping these characters
+// prevents content data from terminating the script element or being
+// interpreted as HTML while preserving valid JSON for search engines.
+const json = JSON.stringify(data)
+  .replace(/</g, "\\u003c")
+  .replace(/>/g, "\\u003e")
+  .replace(/&/g, "\\u0026")
+  .replace(/\u2028/g, "\\u2028")
+  .replace(/\u2029/g, "\\u2029");
+---
+
+<script type="application/ld+json" set:html={json}></script>

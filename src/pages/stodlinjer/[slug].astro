@@ -6,6 +6,8 @@ import Icon from "../../components/Icon.astro";
 import ThemeToggle from "../../components/ThemeToggle.astro";
 import SupportLineDetail from "../../components/SupportLineDetail.astro";
 import SiteFooter from "../../components/SiteFooter.astro";
+import StructuredData from "../../components/StructuredData.astro";
+import { absoluteUrl, breadcrumbList } from "../../lib/structuredData";
 
 // One static page per active support line — the deep-link / no-JS / SEO
 // fallback behind the homepage modal. The card grid links here via
@@ -17,9 +19,47 @@ export const getStaticPaths = (async () => {
 
 const { line } = Astro.props;
 const d = line.data;
+const path = `/stodlinjer/${d.slug}/`;
+const url = absoluteUrl(path);
+const contactPoints = d.contactMethods.flatMap((method) => {
+  const point: Record<string, unknown> = { "@type": "ContactPoint", contactType: method.label };
+  if ((method.channel === "phone" || method.channel === "sms") && method.value) point.telephone = method.value;
+  else if (method.channel === "email" && method.value?.includes("@")) point.email = method.value;
+  else if (method.url) point.url = method.url;
+  else return [];
+  return [point];
+});
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      name: d.name,
+      description: d.shortDescription,
+      url,
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+      mainEntity: { "@id": `${url}#service` },
+    },
+    {
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: d.name,
+      description: d.longDescription,
+      url,
+      provider: { "@type": "Organization", name: d.organization },
+      ...(contactPoints.length ? { contactPoint: contactPoints } : {}),
+    },
+    { "@id": `${url}#breadcrumb`, ...breadcrumbList([
+      { name: "Stödlinjer", path: "/" },
+      { name: d.name, path },
+    ]) },
+  ],
+};
 ---
 
 <BaseLayout title={`${d.name} | Stödlinjer`} description={d.shortDescription}>
+  <StructuredData data={structuredData} />
   <header class="topbar">
     <div class="topbar__inner container--wide">
       <a class="brand" href="/">Stödlinjer</a>

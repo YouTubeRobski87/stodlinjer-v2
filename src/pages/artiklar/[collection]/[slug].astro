@@ -7,6 +7,8 @@ import SiteFooter from "../../../components/SiteFooter.astro";
 import Icon from "../../../components/Icon.astro";
 import ArticleDetail from "../../../components/ArticleDetail.astro";
 import { getArticleCollection } from "../../../lib/articleCollections";
+import StructuredData from "../../../components/StructuredData.astro";
+import { absoluteUrl, breadcrumbList, isoDate, SITE_URL, siteOrganization } from "../../../lib/structuredData";
 
 // One static page per article. URL shape /artiklar/<collection>/<slug>/ matches
 // the cross-links authored in each article's `relatedArticles`.
@@ -23,9 +25,44 @@ export const getStaticPaths = (async () => {
 
 const { entry } = Astro.props;
 const meta = getArticleCollection(entry.data.collection);
+const slug = entry.id.split("/").pop()!;
+const path = `/artiklar/${meta.slug}/${slug}/`;
+const url = absoluteUrl(path);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": `${url}#article`,
+      headline: entry.data.title,
+      description: entry.data.description,
+      url,
+      datePublished: isoDate(entry.data.date),
+      ...(entry.data.updated ? { dateModified: isoDate(entry.data.updated) } : {}),
+      author: { "@type": "Person", name: entry.data.author },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      mainEntityOfPage: { "@id": `${url}#webpage` },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      name: entry.data.title,
+      url,
+      breadcrumb: { "@id": `${url}#breadcrumb` },
+    },
+    siteOrganization(),
+    { "@id": `${url}#breadcrumb`, ...breadcrumbList([
+      { name: "Stödlinjer", path: "/" },
+      { name: "Artiklar", path: "/artiklar/" },
+      { name: meta.label, path: `/artiklar/${meta.slug}/` },
+      { name: entry.data.title, path },
+    ]) },
+  ],
+};
 ---
 
 <BaseLayout title={`${entry.data.title} | Artiklar`} description={entry.data.description}>
+  <StructuredData data={structuredData} />
   <SiteHeader />
 
   <main id="main" class="page container">
