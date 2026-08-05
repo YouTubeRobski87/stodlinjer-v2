@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import categories from "../../content/categories.json";
+
+const lines = (await getCollection("supportLines", ({ data }) => data.status === "active"));
+const total = lines.length;
+const categoryRows = categories
+  .map((category) => ({
+    label: category.label,
+    color: category.color,
+    count: lines.filter((line) => line.data.category.id === category.id).length,
+  }))
+  .filter((category) => category.count > 0)
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label, "sv"));
+
+const alwaysOpen = lines.filter((line) =>
+  line.data.contactMethods.some((method) =>
+    method.openingHours?.some((hours) => hours.open === "00:00" && hours.close === "24:00"),
+  ),
+).length;
+const withChat = lines.filter((line) => line.data.contactMethods.some((method) => method.channel === "chat")).length;
+const withPhone = lines.filter((line) => line.data.contactMethods.some((method) => method.channel === "phone")).length;
+const verified = lines.filter((line) => line.data.lastVerified).length;
+const maximum = Math.max(...categoryRows.map((row) => row.count));
+const today = new Intl.DateTimeFormat("sv-SE", { dateStyle: "long" }).format(new Date());
+---
+
+<BaseLayout
+  title="Stödlinjer — analysöversikt"
+  description="En redaktionell analys av Stödlinjers katalog: täckning, kontaktvägar och tillgänglighet."
+  ogImage="/og.png"
+>
+  <main class="page">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Stödlinjer · intern analys</p>
+        <h1>Ett tydligt kartverk över stödet.</h1>
+        <p class="lede">Översikt av katalogens bredd, kontaktvägar och områden där redaktionen kan fördjupa täckningen.</p>
+      </div>
+      <div class="updated"><span aria-hidden="true"></span> Uppdaterad {today}</div>
+    </header>
+
+    <section class="metrics" aria-label="Nyckeltal">
+      <article><strong>{total}</strong><span>aktiva stödlinjer</span></article>
+      <article><strong>{categoryRows.length}</strong><span>områden för stöd</span></article>
+      <article><strong>{alwaysOpen}</strong><span>med dygnet runt-stöd</span></article>
+      <article><strong>{Math.round((verified / total) * 100)}%</strong><span>har verifierad information</span></article>
+    </section>
+
+    <section class="grid">
+      <article class="panel coverage">
+        <div class="panel-head">
+          <div><p class="kicker">Katalogens fördelning</p><h2>Stöd per område</h2></div>
+          <span class="note">{total} totalt</span>
+        </div>
+        <div class="bars">
+          {categoryRows.map((row) => (
+            <div class="bar-row">
+              <span>{row.label}</span>
+              <div class="track"><i style={`width: ${(row.count / maximum) * 100}%; background: ${row.color};`}></i></div>
+              <b>{row.count}</b>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="panel channels">
+        <p class="kicker">Kontaktvägar</p>
+        <h2>Telefon är basen.<br />Chatten breddar tillgängligheten.</h2>
+        <div class="ring" aria-label={`${withPhone} stödlinjer har telefonkontakt och ${withChat} har chatt.`}>
+          <strong>{withPhone}</strong><span>telefon</span>
+        </div>
+        <div class="channel-stats"><span><i class="dot phone"></i>Telefon <b>{withPhone}</b></span><span><i class="dot chat"></i>Chatt <b>{withChat}</b></span></div>
+      </article>
+    </section>
+
+    <section class="insights">
+      <div class="insight-intro"><p class="kicker">Redaktionellt fokus</p><h2>Tre saker att hålla nära</h2></div>
+      <article><span class="number">01</span><h3>Säkra vägen i akut läge</h3><p>Lyft alltid 112 och dygnet-runt-stödet först i flöden där tid och tydlighet är avgörande.</p></article>
+      <article><span class="number">02</span><h3>Gör chatt synlig</h3><p>Chatt är ett viktigt komplement när telefon inte känns möjlig. Visa kontaktformen direkt i sökresultatet.</p></article>
+      <article><span class="number">03</span><h3>Fördjupa smala områden</h3><p>Områden med få alternativ behöver löpande omvärldsbevakning och extra omsorg vid kvalitetsgranskning.</p></article>
+    </section>
+
+    <section class="source"><span>Underlag</span><p>Analysen bygger på den aktiva katalogen i Stödlinjer och är avsedd som en redaktionell översikt — inte som ett mått på behov eller efterfrågan.</p><a href="/">Till stödkatalogen <span aria-hidden="true">→</span></a></section>
+  </main>
+</BaseLayout>
+
+<style>
+  :global(body) { background: #f7f5ef; color: #18221f; }
+  .page { max-width: 1180px; margin: 0 auto; padding: 58px 28px 80px; }
+  .masthead { display:flex; justify-content:space-between; align-items:flex-start; gap:28px; padding-bottom:56px; border-bottom:1px solid #d7d9d1; }
+  .eyebrow,.kicker { margin:0 0 12px; color:#5d685e; text-transform:uppercase; letter-spacing:.1em; font-size:.72rem; font-weight:700; }
+  h1,h2,h3,p { margin-top:0; } h1,h2 { font-family: var(--font-serif, Georgia, serif); font-weight:400; }
+  h1 { font-size:clamp(2.8rem,6vw,5.4rem); line-height:.95; letter-spacing:-.045em; max-width:720px; margin-bottom:20px; }
+  .lede { max-width:600px; color:#526058; line-height:1.6; font-size:1.1rem; }
+  .updated { margin-top:6px; white-space:nowrap; color:#5d685e; font-size:.85rem; } .updated span { display:inline-block; width:8px; height:8px; background:#6a886c; border-radius:50%; margin-right:7px; }
+  .metrics { display:grid; grid-template-columns:repeat(4,1fr); border-bottom:1px solid #d7d9d1; }
+  .metrics article { padding:30px 22px 32px 0; border-right:1px solid #d7d9d1; } .metrics article + article { padding-left:22px; }
+  .metrics article:last-child { border:0; } .metrics strong { display:block; font-family:var(--font-serif,Georgia,serif); font-size:3.1rem; font-weight:400; line-height:1; letter-spacing:-.04em; } .metrics span { display:block; margin-top:10px; color:#5d685e; font-size:.84rem; }
+  .grid { display:grid; grid-template-columns:1.65fr 1fr; gap:20px; padding-top:42px; }
+  .panel { border:1px solid #d7d9d1; border-radius:18px; padding:28px; background:#fbfaf6; } .panel-head { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; } h2 { font-size:2rem; letter-spacing:-.035em; line-height:1.05; margin-bottom:0; } .note { font-size:.8rem; color:#657066; padding-top:4px; white-space:nowrap; }
+  .bars { margin-top:28px; display:grid; gap:13px; } .bar-row { display:grid; grid-template-columns:150px 1fr 24px; align-items:center; gap:12px; font-size:.82rem; color:#465249; } .track { height:8px; background:#e6e6df; border-radius:10px; overflow:hidden; } .track i { display:block; height:100%; border-radius:10px; } .bar-row b { font-size:.82rem; color:#1d2722; text-align:right; }
+  .channels { background:#243e36; color:#f5f3ec; position:relative; overflow:hidden; } .channels .kicker { color:#a2b9a8; } .channels h2 { font-size:1.8rem; } .ring { width:150px; height:150px; margin:31px auto 23px; border-radius:50%; display:grid; place-content:center; text-align:center; border:15px solid #adcf87; border-left-color:#4e7564; transform:rotate(-30deg); } .ring strong,.ring span { transform:rotate(30deg); display:block; } .ring strong { font-family:var(--font-serif,Georgia,serif); font-size:2.6rem; font-weight:400; line-height:.9; } .ring span { margin-top:5px; font-size:.75rem; color:#d0d9d0; } .channel-stats { display:flex; justify-content:center; gap:18px; font-size:.8rem; color:#d7e0d6; } .channel-stats b { color:white; margin-left:4px; } .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; } .phone { background:#adcf87; }.chat { background:#7bb6d4; }
+  .insights { margin-top:48px; display:grid; grid-template-columns:1.3fr repeat(3,1fr); gap:18px; align-items:stretch; } .insight-intro { padding:18px 16px 0 0; } .insights article { background:#e6e9dd; border-radius:14px; padding:23px; } .number { font:700 .75rem var(--font-mono,monospace); color:#5e7768; } h3 { font-family:var(--font-serif,Georgia,serif); font-size:1.3rem; font-weight:400; line-height:1.1; margin:26px 0 12px; } .insights article p { color:#59655c; font-size:.88rem; line-height:1.55; margin-bottom:0; }
+  .source { margin-top:52px; padding-top:18px; border-top:1px solid #d7d9d1; display:grid; grid-template-columns:110px 1fr auto; gap:20px; font-size:.83rem; color:#5b655d; align-items:start; } .source span { font-weight:700; color:#28332c; }.source p { margin:0; line-height:1.5; max-width:640px; }.source a { color:#253d34; font-weight:700; text-decoration:none; white-space:nowrap; }
+  @media(max-width:800px) { .masthead,.source { display:block; }.updated { margin-top:20px; }.metrics { grid-template-columns:repeat(2,1fr); }.metrics article:nth-child(2) { border-right:0; }.metrics article:nth-child(n+3) { border-top:1px solid #d7d9d1; }.grid,.insights { grid-template-columns:1fr; }.source > * { margin-bottom:13px!important; } }
+  @media(max-width:520px) { .page { padding:38px 18px 56px; }.metrics strong { font-size:2.5rem; }.metrics article { padding:23px 12px 23px 0; }.metrics article + article { padding-left:12px; }.bar-row { grid-template-columns:112px 1fr 20px; gap:8px; }.panel { padding:21px 17px; } }
+</style>
