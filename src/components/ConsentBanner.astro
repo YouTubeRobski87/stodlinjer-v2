@@ -1,0 +1,166 @@
+---
+// Cookie consent for analytics.
+//
+// Hidden in the markup and only revealed by the script below when no choice is
+// stored, so a returning visitor never sees it flash. Declining is as easy as
+// accepting — this is a crisis site, and nobody should feel pushed into being
+// measured to reach help.
+//
+// Pairs with <GoogleAnalytics />, which sets analytics_storage to "denied" by
+// default; this component is the only thing that ever grants it.
+---
+
+<div
+  class="consent"
+  id="consent-banner"
+  role="dialog"
+  aria-labelledby="consent-title"
+  aria-describedby="consent-text"
+  hidden
+>
+  <p class="consent__title" id="consent-title">Kakor för statistik</p>
+  <p class="consent__text" id="consent-text">
+    Vi vill gärna mäta hur sidan används, för att kunna göra den bättre. Det är helt frivilligt –
+    sidan fungerar likadant om du tackar nej.
+  </p>
+  <div class="consent__actions">
+    <button class="consent__btn consent__btn--accept" type="button" data-consent="granted">
+      Tillåt statistik
+    </button>
+    <button class="consent__btn consent__btn--decline" type="button" data-consent="denied">
+      Nej tack
+    </button>
+  </div>
+</div>
+
+<style>
+  .consent {
+    position: fixed;
+    left: var(--space-6);
+    bottom: var(--space-6);
+    z-index: 70; /* above the chat launcher (60) */
+    width: min(26rem, calc(100vw - var(--space-6) * 2));
+    padding: var(--space-5);
+    border: var(--hairline) solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    box-shadow: 0 8px 30px rgb(0 0 0 / 0.12);
+  }
+  .consent[hidden] {
+    display: none;
+  }
+  .consent__title {
+    margin: 0 0 var(--space-2);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--foreground);
+  }
+  .consent__text {
+    margin: 0 0 var(--space-4);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .consent__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  .consent__btn {
+    flex: 1 1 auto;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    border: var(--hairline) solid transparent;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .consent__btn--accept {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  .consent__btn--accept:hover {
+    background: var(--accent-hover);
+  }
+  .consent__btn--decline {
+    background: transparent;
+    color: var(--foreground);
+    border-color: var(--border-strong);
+  }
+  .consent__btn--decline:hover {
+    background: var(--accent-soft);
+  }
+
+  /* Phones: sit above the chat launcher rather than covering it — reaching
+     support must never be blocked by a cookie notice. */
+  @media (max-width: 560px) {
+    .consent {
+      left: var(--space-4);
+      right: var(--space-4);
+      bottom: calc(var(--space-4) + 4.5rem);
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .consent {
+      animation: consent-in 0.2s ease-out;
+    }
+    @keyframes consent-in {
+      from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+      }
+    }
+  }
+</style>
+
+<script>
+  // Storage key is shared with GoogleAnalytics.astro, which re-applies a stored
+  // "granted" on later page loads.
+  const STORAGE_KEY = "cookie-consent";
+  const banner = document.getElementById("consent-banner");
+
+  function readChoice(): string | null {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  if (banner) {
+    // Blocked storage (private mode) would make the banner reappear on every
+    // page, so it stays hidden and consent stays denied.
+    let storageWorks = true;
+    try {
+      localStorage.setItem(STORAGE_KEY + ":probe", "1");
+      localStorage.removeItem(STORAGE_KEY + ":probe");
+    } catch {
+      storageWorks = false;
+    }
+
+    if (storageWorks && readChoice() === null) {
+      banner.hidden = false;
+    }
+
+    banner.addEventListener("click", (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLElement>("[data-consent]");
+      if (!button) return;
+
+      const choice = button.dataset.consent === "granted" ? "granted" : "denied";
+      try {
+        localStorage.setItem(STORAGE_KEY, choice);
+      } catch {
+        // Nothing stored: the choice still applies for this page view.
+      }
+
+      if (choice === "granted") {
+        window.gtag?.("consent", "update", { analytics_storage: "granted" });
+      }
+
+      banner.hidden = true;
+    });
+  }
+</script>

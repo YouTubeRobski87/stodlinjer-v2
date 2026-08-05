@@ -5,6 +5,7 @@ import "../styles/global.css";
 import Launcher from "../components/stodkompassen/Launcher.astro";
 import AcuteStrip from "../components/AcuteStrip.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import ConsentBanner from "../components/ConsentBanner.astro";
 
 interface Props {
   title: string;
@@ -66,6 +67,7 @@ const ogImageUrl = Astro.props.ogImage ? new URL(Astro.props.ogImage, Astro.url)
     <AcuteStrip />
     <slot />
     {showLauncher && <Launcher />}
+    <ConsentBanner />
     <style>
       /* Off-screen until a keyboard user tabs to it, then it drops into view
          at the top-left as the first focus stop. */

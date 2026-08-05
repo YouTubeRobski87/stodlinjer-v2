@@ -1,5 +1,5 @@
 ---
-// Google Analytics 4 (gtag.js).
+// Google Analytics 4 (gtag.js) with Consent Mode v2.
 //
 // The measurement ID comes from PUBLIC_GA_MEASUREMENT_ID. Astro inlines
 // PUBLIC_* variables at build time, so the value must be present when
@@ -7,17 +7,16 @@
 //
 // Renders nothing when the variable is unset, which keeps local dev and
 // preview builds out of the production property.
+//
+// Consent: storage is denied by default and only granted once the visitor
+// accepts in <ConsentBanner />. The default MUST be pushed to dataLayer
+// before gtag.js executes, so the inline block below comes first.
 const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 {
   measurementId && (
     <>
-      <script
-        is:inline
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`}
-      />
       <script is:inline define:vars={{ measurementId }}>
         // define:vars wraps this in an IIFE, so gtag is assigned to window
         // explicitly — a bare `function gtag()` would stay local and later
@@ -28,9 +27,35 @@ const measurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
           function () {
             window.dataLayer.push(arguments);
           };
+
+        // Nothing is stored until the visitor agrees. wait_for_update gives the
+        // stored-choice check below a moment to land before the first hit.
+        window.gtag("consent", "default", {
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          analytics_storage: "denied",
+          wait_for_update: 500,
+        });
+
+        // Re-apply a previous "accept" so returning visitors are measured from
+        // the very first hit instead of after the banner script runs.
+        try {
+          if (localStorage.getItem("cookie-consent") === "granted") {
+            window.gtag("consent", "update", { analytics_storage: "granted" });
+          }
+        } catch (_) {
+          // Private mode / blocked storage: stay denied.
+        }
+
         window.gtag("js", new Date());
         window.gtag("config", measurementId);
       </script>
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`}
+      />
     </>
   )
 }
