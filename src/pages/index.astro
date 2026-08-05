@@ -9,6 +9,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import Icon from "../components/Icon.astro";
 import categoriesData from "../content/categories.json";
 import { detailHours, closedDays, type Hours } from "../lib/hours";
+import { facetLabel } from "../lib/labels";
 
 const categories = categoriesData;
 const catById = Object.fromEntries(categories.map((c) => [c.id, c]));
@@ -73,7 +74,7 @@ function cardPropsOf(line: Line) {
       <p class="hero__eyebrow mono">{lines.length} stödlinjer · {categories.length} kategorier</p>
       <h1 class="hero__title">Behöver du hjälp nu?</h1>
       <p class="hero__lede">
-        Hitta rätt stödlinje — anonymt, kostnadsfritt och dygnet runt.
+        Hitta rätt stöd när du behöver det – via telefon, chatt eller webb.
       </p>
 
       <div class="hero-search" role="search">
@@ -146,7 +147,13 @@ function cardPropsOf(line: Line) {
                 hoursDetail={cp.hoursDetail}
                 hoursClosed={cp.hoursClosed}
                 website={cp.website}
-                keywords={[...cat.keywords, ...line.data.helpsWith]}
+                keywords={[
+                  ...cat.keywords,
+                  ...line.data.helpsWith,
+                  // Both spellings in the index: the ascii slug and the
+                  // Swedish label, so "angest" and "ångest" both match.
+                  ...line.data.helpsWith.map(facetLabel),
+                ]}
                 href={`/stodlinjer/${line.data.slug}/`}
               />
             );

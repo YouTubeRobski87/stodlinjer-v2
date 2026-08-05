@@ -5,6 +5,7 @@ import Icon from "./Icon.astro";
 import categoriesData from "../content/categories.json";
 import { detailHours, closedDays, liveStatus, type Hours } from "../lib/hours";
 import { lineNeedsCrisisBanner, DEFAULT_EMERGENCY_TEXT } from "../lib/crisis";
+import { facetLabel } from "../lib/labels";
 
 interface Props {
   line: CollectionEntry<"supportLines">;
@@ -71,10 +72,9 @@ const contacts = d.contactMethods.map(contactView);
 const showCrisis = lineNeedsCrisisBanner(d.urgency);
 const crisisText = d.urgency.emergencyText ?? DEFAULT_EMERGENCY_TEXT;
 
-// helpsWith / targetGroups are ascii-folded slugs (e.g. "akut-psykisk-kris").
-// Prettify for display; a curated label map can replace this later.
-const pretty = (s: string) =>
-  s.replace(/-/g, " ").replace(/^./, (c) => c.toUpperCase());
+// Languages/region are already written out in Swedish — they only need a
+// capital. Facet slugs go through facetLabel() instead (see lib/labels.ts).
+const pretty = (s: string) => s.replace(/^./, (c) => c.toUpperCase());
 const REGION_LABEL: Record<string, string> = { sweden: "Hela Sverige" };
 
 const verified = new Intl.DateTimeFormat("sv-SE", { dateStyle: "long" }).format(
@@ -190,7 +190,7 @@ const showOrg = d.organization && d.organization !== d.name;
         {d.helpsWith.length > 0 && (
           <ul class="chips">
             {d.helpsWith.map((t) => (
-              <li class="chip">{pretty(t)}</li>
+              <li class="chip">{facetLabel(t)}</li>
             ))}
           </ul>
         )}
@@ -199,7 +199,7 @@ const showOrg = d.organization && d.organization !== d.name;
             <h4 class="section__sub">För</h4>
             <ul class="chips">
               {d.targetGroups.map((t) => (
-                <li class="chip">{pretty(t)}</li>
+                <li class="chip">{facetLabel(t)}</li>
               ))}
             </ul>
           </>

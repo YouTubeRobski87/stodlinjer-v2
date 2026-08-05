@@ -4,10 +4,10 @@
   "name": "Frisk & Fri",
   "organization": "Frisk & Fri - Riksföreningen mot ätstörningar",
   "type": "support_organization",
-  "status": "active",
+  "status": "retired",
   "category": "eating_disorders",
-  "shortDescription": "Anonymt stöd via telefon, chatt och stödmejl för drabbade och närstående vid ätstörningar.",
-  "longDescription": "Frisk & Fri erbjuder stöd till personer som är drabbade av ätstörningar, närstående och yrkesverksamma genom Ätstörningslinjen, Närståendelinjen, stödchatt och stödmejl.",
+  "shortDescription": "Organisationen bakom Ätstörningslinjen. Sammanslagen med posten \"Ätstörningslinjen – av Frisk & Fri\".",
+  "longDescription": "Frisk & Fri erbjuder stöd till personer som är drabbade av ätstörningar, närstående och yrkesverksamma genom Ätstörningslinjen, Närståendelinjen, stödchatt och stödmejl. Frisk & Fri är en organisation, inte en egen stödlinje: allt stöd redovisas i katalogen under Ätstörningslinjen – av Frisk & Fri (slug: atstorningslinjen). Posten ligger kvar som organisationsuppgift men visas inte i katalogen.",
   "helpsWith": [
     "atstorningar",
     "oro-for-kropp-mat-och-traning",
@@ -279,6 +279,8 @@
   },
   "metadata": {
     "lastVerified": "2026-06-04",
-    "nextReview": "2026-12-04"
+    "nextReview": "2026-12-04",
+    "resourceKind": "support_organization",
+    "supportLine": false
   }
 }
