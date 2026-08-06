@@ -9,6 +9,11 @@ const legalLinks = [
   { label: "Integritetspolicy", href: "#" },
   { label: "Cookiepolicy", href: "#" },
   { label: "Användarvillkor", href: "#" },
+  {
+    label: "I samarbete med MittPsyke.se",
+    href: "https://www.mittpsyke.se/",
+    external: true,
+  },
 ];
 ---
 
@@ -24,16 +29,18 @@ const legalLinks = [
     </div>
 
     <div class="footer__links-col">
-      <a class="footer__mittpsyke" href="https://www.mittpsyke.se/">
-        Upptäck MittPsyke – skriv anonymt om ditt mående
-      </a>
       <a class="footer__email" href="mailto:kontakt@stodlinjer.se"
         >kontakt@stodlinjer.se</a
       >
       <nav class="footer__legal" aria-label="Juridiska sidor">
         {
           legalLinks.map((l) => (
-            <a class="footer__link" href={l.href}>
+            <a
+              class="footer__link"
+              href={l.href}
+              target={l.external ? "_blank" : undefined}
+              rel={l.external ? "noopener noreferrer" : undefined}
+            >
               {l.label}
             </a>
           ))
@@ -100,17 +107,12 @@ const legalLinks = [
     gap: var(--space-2);
   }
   .footer__email:hover,
-  .footer__mittpsyke:hover,
   .footer__link:hover {
     color: var(--foreground);
   }
-  .footer__mittpsyke {
-    color: var(--muted);
-    font-size: 0.875rem;
-    transition: color 0.15s ease;
-  }
   .footer__link {
     color: var(--muted);
+    white-space: nowrap;
     transition: color 0.15s ease;
   }
   /* Middot separators between legal links */
