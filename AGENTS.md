@@ -92,5 +92,20 @@ enskilda routes — ändra dem där, så gäller de på alla ytor.
 
 ## Arbetssätt
 
-- Gör inga commits eller pushar utan uttrycklig instruktion.
-- Node 24 LTS är målversionen (se `.nvmrc`).
+Node 24 LTS är målversionen (se `.nvmrc`).
+
+När en uppgift är helt genomförd och verifierad avslutas den med commit och
+push — utan att fråga först:
+
+1. Kör relevanta verifieringar: `npm run check`, `npm run test`, `npm run build`
+   och andra projektrelevanta kontroller.
+2. `git diff --check` ska vara rent.
+3. Granska att diffen bara innehåller avsedda ändringar.
+4. Commit enligt Conventional Commits (`feat:`, `fix:`, `refactor:`, `docs:`,
+   `test:`).
+5. Pusha till `origin`, rätt branch.
+6. Rapportera commit-hash, branch, att pushen lyckades, vilka verifieringar som
+   kördes, och en kort sammanfattning.
+
+Misslyckas en verifiering: åtgärda först. Går det inte att lösa — commita och
+pusha inte, utan redovisa orsaken och vad som återstår.
