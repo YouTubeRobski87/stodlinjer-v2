@@ -413,6 +413,26 @@ const greeting =
     color: var(--subtle);
   }
 
+  /* Provenance: quiet by design — present on every card so a recommendation can
+     always be traced, without competing with the number someone came to call. */
+  .sk-card__source {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: var(--space-2);
+    font-size: 0.78125rem;
+    color: var(--subtle);
+  }
+  .sk-card__source a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .sk-card__source a:hover {
+    color: var(--foreground);
+  }
+
   /* Article suggestion: same shape as a line card, quieter surface so it reads
      as "something to read" rather than "someone to call right now". */
   .sk-card--article {

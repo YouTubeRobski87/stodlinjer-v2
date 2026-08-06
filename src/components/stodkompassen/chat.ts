@@ -17,6 +17,10 @@ interface ClientLine {
   hoursClosed: string | null;
   website: string | null;
   href: string;
+  sourceUrl: string;
+  verifiedAt: string;
+  verification: "current" | "review-soon" | "stale" | "missing";
+  isSupportLine: boolean;
 }
 
 interface ClientArticle {
@@ -180,8 +184,33 @@ function initChat(root: HTMLElement) {
       foot.appendChild(hours);
     }
 
-    card.append(head, name, desc, foot);
+    // Provenance line — every recommended line states where the facts come
+    // from and when they were last checked, straight from verified data.
+    const src = document.createElement("p");
+    src.className = "sk-card__source";
+    const srcLink = document.createElement("a");
+    srcLink.href = line.sourceUrl;
+    srcLink.target = "_blank";
+    srcLink.rel = "noopener noreferrer";
+    srcLink.textContent = "Officiell källa";
+    // Screen readers get the line's name too, so a reply full of cards doesn't
+    // read as a row of identical "Officiell källa" links.
+    srcLink.setAttribute("aria-label", `Officiell källa för ${line.name}, öppnas i ny flik`);
+    const verified = document.createElement("span");
+    verified.className = "sk-card__verified";
+    verified.textContent = `Verifierad ${formatVerifiedDate(line.verifiedAt)}`;
+    src.append(srcLink, document.createTextNode(" · "), verified);
+
+    card.append(head, name, desc, foot, src);
     return card;
+  }
+
+  // Rendered, never rewritten: an unparseable value is shown as stored rather
+  // than replaced with an invented date.
+  function formatVerifiedDate(iso: string): string {
+    const t = Date.parse(iso);
+    if (Number.isNaN(t)) return iso;
+    return new Intl.DateTimeFormat("sv-SE", { dateStyle: "medium" }).format(new Date(t));
   }
 
   // Article card — verified title/description/link from /stodkompassen-articles.json,
@@ -263,6 +292,9 @@ function initChat(root: HTMLElement) {
       // unknown slugs render nothing (and don't disturb the diff).
       if (kind === "line" && lines[slug]) segs.push({ kind: "line", slug });
       else if (kind === "article" && articles[slug]) segs.push({ kind: "article", slug });
+      // A marker that resolves to nothing is a hallucinated id. Drop it, and
+      // log the id alone as a technical fault — never the person's message.
+      else if (final) console.warn(`[stodkompassen] okänt ${kind}-id från modellen: ${slug}`);
       last = m.index + m[0].length;
     }
     if (last < text.length) pushText(text.slice(last));

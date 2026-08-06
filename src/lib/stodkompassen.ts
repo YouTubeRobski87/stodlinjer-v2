@@ -14,6 +14,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import categoriesData from "../content/categories.json";
 import { detailHours, closedDays, type Hours } from "./hours";
 import { getArticleCollection } from "./articleCollections";
+import { admissionIssues, verificationStatus, type RawSupportLine } from "./verifiedCatalog";
 
 type Line = CollectionEntry<"supportLines">;
 type Article = CollectionEntry<"articles">;
@@ -28,13 +29,35 @@ const CHANNEL_LABEL: Record<string, string> = {
   web: "webb",
 };
 
+// Admission gate: a line reaches an AI surface only if it passes
+// verifiedCatalog's rules — stable id, name, description, a real source URL and
+// a verification date. Rejections are logged once (slug + reason, no user
+// content) so bad records are visible to editors instead of silently shipping.
+// See src/lib/verifiedCatalog.ts for the rules themselves.
+let loggedRejections = false;
+
+function admitted(entries: Line[]): Line[] {
+  const kept: Line[] = [];
+  const rejected: { slug: string; issues: string[] }[] = [];
+  for (const e of entries) {
+    const issues = admissionIssues(e.data as unknown as RawSupportLine);
+    if (issues.length === 0) kept.push(e);
+    else rejected.push({ slug: e.data.slug, issues });
+  }
+  if (rejected.length && !loggedRejections) {
+    loggedRejections = true;
+    for (const r of rejected)
+      console.warn(`[stodkompassen] utesluten ur AI-katalogen: ${r.slug} — ${r.issues.join(", ")}`);
+  }
+  return kept;
+}
+
 // Active lines, sorted the same way the homepage grid sorts them
 // (featured first, then priority, then Swedish-collated name) so the model
 // sees the most prominent resources first.
 async function activeLines(): Promise<Line[]> {
-  const lines = await getCollection(
-    "supportLines",
-    (e) => e.data.status === "active",
+  const lines = admitted(
+    await getCollection("supportLines", (e) => e.data.status === "active"),
   );
   return lines.sort((a, b) => {
     const f = Number(b.data.display.featured) - Number(a.data.display.featured);
@@ -80,6 +103,12 @@ function catalogEntry(line: Line): string {
     `  anonymt: ${yesno(d.accessibility.anonymous)} · gratis: ${yesno(
       d.accessibility.free,
     )} · språk: ${d.accessibility.languages.join(", ")} · brådska: ${d.urgency.level}`,
+    // Provenance travels with the record so the model can never present a line
+    // as verified without one — the card renders both from the same data.
+    `  källa: ${d.source.primaryUrl} · verifierad: ${d.metadata.lastVerified}`,
+    d.metadata.supportLine === false
+      ? `  OBS: detta är ingen stödlinje utan en myndighet/kunskapsresurs — kalla den inte stödlinje.`
+      : null,
   ];
   return lines.filter(Boolean).join("\n");
 }
@@ -114,6 +143,14 @@ const CORE = `Du är **Stödkompassen**, en varm och omtänksam vägledare på s
 - Använd bara slugs som finns i katalogerna nedan. Hittar du ingen passande artikel: hänvisa allmänt till /artiklar/ utan markör. Hitta aldrig på en slug.
 - Nämn resursen vid namn i texten och lägg till markören på egen rad.
 - Skriv aldrig ut interna taggar eller system-XML i svaret. Det enda som får stå inom hakparenteser är markörerna ovan.
+
+# Endast verifierad katalogdata (gäller allt du påstår om en resurs)
+- Katalogen nedan är din ENDA källa. Använd inte allmän modellkunskap, minnesbilder eller egna antaganden om svenska stödlinjer — inte ens om du "vet" att en organisation finns.
+- Nämn aldrig en organisation som inte står i katalogen. Saknas en passande resurs: säg det rakt och vänligt ("jag hittar ingen stödlinje i vår katalog som passar just det") och föreslå närmaste rimliga alternativ eller 1177.
+- Påstå inte att något är anonymt, kostnadsfritt eller öppet dygnet runt om det inte uttryckligen står så i katalogposten.
+- Kombinera aldrig uppgifter från två poster till en. Varje resurs står för sig.
+- Vissa poster är märkta som myndighet eller kunskapsresurs, inte stödlinje. Kalla dem inte stödlinje.
+- Varje kort visar automatiskt officiell källa och verifieringsdatum. Skriv inte egna källhänvisningar eller datum.
 
 # Lite stöd på vägen — men inte vård
 - Du får erbjuda enkel, väletablerad egenhjälp i stunden (t.ex. ett andnings- eller grundningstips).
@@ -311,6 +348,12 @@ export interface ClientLine {
   hoursClosed: string | null;
   website: string | null;
   href: string;
+  /** Provenance, shown on every card (Del 4): specific source + last check. */
+  sourceUrl: string;
+  verifiedAt: string;
+  verification: "current" | "review-soon" | "stale" | "missing";
+  /** False for authorities/knowledge resources — not to be called stödlinjer. */
+  isSupportLine: boolean;
 }
 
 function clientLineOf(line: Line): ClientLine {
@@ -345,6 +388,10 @@ function clientLineOf(line: Line): ClientLine {
     hoursClosed: closedDays(entries),
     website: d.source.primaryUrl ?? null,
     href: `/stodlinjer/${d.slug}/`,
+    sourceUrl: d.source.primaryUrl,
+    verifiedAt: d.metadata.lastVerified,
+    verification: verificationStatus(d.metadata.lastVerified, d.metadata.nextReview),
+    isSupportLine: d.metadata.supportLine !== false,
   };
 }
 
