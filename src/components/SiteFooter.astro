@@ -18,11 +18,15 @@ const legalLinks = [
       <a class="footer__brand" href="/">Stödlinjer</a>
       <p class="footer__meta">
         <span>© {year} Stödlinjer</span>
+        <span>Grundat av Robert Claesson &amp; Johanna Fagerås</span>
         <span class="footer__orgnr mono">Org.nr 891115-1945</span>
       </p>
     </div>
 
     <div class="footer__links-col">
+      <a class="footer__mittpsyke" href="https://www.mittpsyke.se/">
+        Upptäck MittPsyke – skriv anonymt om ditt mående
+      </a>
       <a class="footer__email" href="mailto:kontakt@stodlinjer.se"
         >kontakt@stodlinjer.se</a
       >
@@ -96,8 +100,14 @@ const legalLinks = [
     gap: var(--space-2);
   }
   .footer__email:hover,
+  .footer__mittpsyke:hover,
   .footer__link:hover {
     color: var(--foreground);
+  }
+  .footer__mittpsyke {
+    color: var(--muted);
+    font-size: 0.875rem;
+    transition: color 0.15s ease;
   }
   .footer__link {
     color: var(--muted);
