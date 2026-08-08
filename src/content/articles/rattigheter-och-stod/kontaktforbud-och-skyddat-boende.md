@@ -8,6 +8,7 @@ collection: rattigheter-och-stod
 tags: ["säkerhet", "våld-i-nära-relationer", "rättigheter", "socialtjänsten", "boende", "kvinnofridslinjen"]
 readingTime: 9 min
 references:
+  - 'Åklagarmyndigheten. (2026). Kontaktförbud. Rättslig vägledning 2026:6, Utvecklingscentrum. https://www.aklagare.se/globalassets/dokument/rattsliga-vagledningar/rav-2026-06-kontaktforbud.pdf'
   - 'Åklagarmyndigheten. (2026). Kontaktförbud. Åklagarmyndigheten. https://www.aklagare.se/fran-brott-till-rattegang/brottsutredningen/kontaktforbud/'
   - 'Polismyndigheten. (2026). Kontaktförbud. Polisen. https://polisen.se/utsatt-for-brott/hjalp-och-stod-fran-samhallet/kontaktforbud/'
   - 'SFS 1988:688. Lag om kontaktförbud. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1988688-om-kontaktforbud_sfs-1988-688/'
@@ -35,15 +36,25 @@ Kort sagt: **kontaktförbud** reglerar vad den andra personen får göra. **Skyd
 
 Ett kontaktförbud är ett beslut som förbjuder en person att kontakta eller närma sig dig. Det omfattar alla former av kontakt – att besöka, ringa, skriva, mejla, höra av sig via sociala medier eller följa efter dig. Personen får inte heller be någon annan ta kontakt åt sig.
 
+### Vad som kan ligga till grund
+
+Ett kontaktförbud kräver inte att du blivit slagen. Det räcker med risk för att personen ska **begå brott mot dig, förfölja dig, otillbörligt övervaka dig eller på annat sätt allvarligt trakassera dig**.
+
+Otillbörlig övervakning betyder handlande som syftar till att kontrollera eller kartlägga var du befinner dig eller vad du gör. Trakasserier kan vara lindrigare än förföljelse – exempelvis upprepade mycket aggressiva uttalanden, eller beteenden som allmänt sett är ägnade att skrämma.
+
+Sedan 1 juli 2025 finns dessutom en helt ny grund: **risk för påverkan**. Kontaktförbud kan meddelas om det finns risk för att personen försöker påverka dig för att hindra dig från att lämna uppgifter till en domstol eller en brottsbekämpande myndighet.
+
 ### De olika formerna
 
-**Vanligt kontaktförbud** gäller i hela landet men innebär inga geografiska begränsningar i övrigt. Personen får vistas var som helst, så länge hen inte söker kontakt med dig.
+**Vanligt kontaktförbud** gäller i hela landet men innebär inga geografiska begränsningar i övrigt. Personen får vistas var som helst, så länge hen inte söker kontakt med dig. Får meddelas för högst ett år i taget.
 
-**Utvidgat kontaktförbud** förbjuder personen att vistas inom ett eller flera områden kring din bostad, arbetsplats eller andra platser du brukar vara. Det används när ett vanligt förbud inte bedöms räcka.
+**Utvidgat kontaktförbud** förbjuder personen att vistas inom ett eller flera områden kring din bostad, arbetsplats eller andra platser du brukar vara. Det används när ett vanligt förbud inte bedöms räcka. Högst ett år i taget.
 
-**Särskilt utvidgat kontaktförbud** omfattar ett större område. Det förutsätter inte att ett tidigare förbud har överträtts — det kan också beslutas när det finns en påtaglig risk för att personen begår brott som innebär ett allvarligt angrepp på ditt liv, din hälsa eller din frihet.
+**Särskilt utvidgat kontaktförbud** omfattar ett större område. Det förutsätter inte att ett tidigare förbud har överträtts — det kan också beslutas när det finns en påtaglig risk för att personen begår brott som innebär ett allvarligt angrepp på ditt liv, din hälsa eller din frihet. Högst ett år i taget.
 
-**Kontaktförbud avseende gemensam bostad** innebär att personen förbjuds vistas i ert gemensamma hem. Det gäller en begränsad tid åt gången och kräver risk för brott mot liv, hälsa, frihet eller frid.
+**Kontaktförbud avseende gemensam bostad** innebär att personen förbjuds vistas i ert gemensamma hem. Det kräver risk för brott mot liv, hälsa, frihet eller frid, och gäller **högst två månader**. Förlängning får bara ske om det finns särskilda skäl, och då med högst två veckor i taget.
+
+Förlängning av de övriga formerna sker med högst ett år i taget — eller högst tre månader i taget om förbudet är förenat med elektronisk övervakning.
 
 ### Elektronisk övervakning
 
@@ -61,7 +72,11 @@ Beskriv vad du utsatts för och varför du behöver skydd. Du behöver inte ha p
 
 ### Om förbudet bryts
 
-Att överträda ett kontaktförbud är straffbart. Kontakta polisen omedelbart och dokumentera vad som hänt. Överträdelser kan leda till att förbudet skärps.
+Att överträda ett kontaktförbud är ett brott. Straffet är fängelse i högst ett år — och fängelse i högst två år om det gäller ett utvidgat eller särskilt utvidgat kontaktförbud. Är överträdelsen ringa döms till böter.
+
+Att avsiktligt hindra eller försvåra den elektroniska övervakningen är också straffbart, med fängelse i högst ett år.
+
+Kontakta polisen omedelbart och dokumentera vad som hänt. Överträdelser kan dessutom leda till att förbudet skärps till en mer ingripande form.
 
 ### Det kontaktförbudet inte gör
 
