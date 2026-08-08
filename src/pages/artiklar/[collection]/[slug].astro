@@ -8,7 +8,7 @@ import Icon from "../../../components/Icon.astro";
 import ArticleDetail from "../../../components/ArticleDetail.astro";
 import { getArticleCollection } from "../../../lib/articleCollections";
 import StructuredData from "../../../components/StructuredData.astro";
-import { absoluteUrl, breadcrumbList, isoDate, SITE_URL, siteOrganization } from "../../../lib/structuredData";
+import { absoluteUrl, authorEntity, breadcrumbList, isoDate, SITE_URL, siteOrganization } from "../../../lib/structuredData";
 
 // One static page per article. URL shape /artiklar/<collection>/<slug>/ matches
 // the cross-links authored in each article's `relatedArticles`.
@@ -39,7 +39,7 @@ const structuredData = {
       url,
       datePublished: isoDate(entry.data.date),
       ...(entry.data.updated ? { dateModified: isoDate(entry.data.updated) } : {}),
-      author: { "@type": "Person", name: entry.data.author },
+      author: authorEntity(entry.data.author),
       publisher: { "@id": `${SITE_URL}/#organization` },
       mainEntityOfPage: { "@id": `${url}#webpage` },
     },

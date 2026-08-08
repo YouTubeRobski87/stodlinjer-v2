@@ -14,6 +14,17 @@ export function siteOrganization(): Record<string, unknown> {
   };
 }
 
+// Byline used on migrated editorial content that no single person authored.
+// It is the site itself, so it resolves to the Organization node already in
+// the graph rather than to a fabricated Person.
+export const EDITORIAL_AUTHOR = "Stödlinjers redaktion";
+
+export function authorEntity(name: string): Record<string, unknown> {
+  return name === EDITORIAL_AUTHOR
+    ? { "@id": `${SITE_URL}/#organization` }
+    : { "@type": "Person", name };
+}
+
 export function breadcrumbList(
   items: Array<{ name: string; path: string }>,
 ): Record<string, unknown> {

@@ -21,6 +21,10 @@ relatedArticles:
     url: '/artiklar/kvinnors-halsa/kroppen-som-aldrig-blir-nog/'
   - title: 'Ekonomiskt våld – när någon annan styr över dina pengar och skulder'
     url: '/artiklar/rattigheter-och-stod/ekonomiskt-vald/'
+  - title: 'Varför lämnar man inte bara? – psykologin bakom att stanna'
+    url: '/artiklar/kvinnors-halsa/varfor-lamnar-man-inte-bara/'
+  - title: 'Psykiskt våld – de sår ingen kan se'
+    url: '/artiklar/rattigheter-och-stod/psykiskt-vald/'
 ---
 
 > **Vid akut fara, ring 112.** För vårdråd, ring 1177.
@@ -84,7 +88,7 @@ Ja. Psykiskt våld, kontroll, hot och ekonomiskt våld är våld, även utan ett
 
 ### Varför är det så svårt att bara lämna?
 
-För att våld i nära relationer är gjort för att bryta ner din självtillit och binda dig känslomässigt, steg för steg. Att känna sig kluven, rädd eller fortfarande älska någon som gör en illa är vanligt och mänskligt. Att inte ha gått betyder inte att du är svag, och du behöver inte göra det ensam eller utan stöd.
+För att våld i nära relationer är gjort för att bryta ner din självtillit och binda dig känslomässigt, steg för steg. Att känna sig kluven, rädd eller fortfarande älska någon som gör en illa är vanligt och mänskligt. Att inte ha gått betyder inte att du är svag, och du behöver inte göra det ensam eller utan stöd. Vi går igenom det mer utförligt i [Varför lämnar man inte bara?](/artiklar/kvinnors-halsa/varfor-lamnar-man-inte-bara/).
 
 ### Tänk om jag överdriver eller inbillar mig?
 
