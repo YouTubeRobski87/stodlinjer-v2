@@ -7,14 +7,15 @@ author: Stödlinjers redaktion
 collection: rattigheter-och-stod
 tags: ["patienträttigheter", "psykiatri", "vård", "rättigheter", "bemötande", "söka-hjälp"]
 readingTime: 8 min
-draft: true
 references:
   - 'SFS 2014:821. Patientlag. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/patientlag-2014821_sfs-2014-821/'
   - 'SFS 2017:30. Hälso- och sjukvårdslag. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/halso--och-sjukvardslag_sfs-2017-30/'
-  - '1177. (2025). Vårdgarantin. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/lagar-och-bestammelser/vardgaranti/'
-  - '1177. (2025). Att välja vårdmottagning. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/att-valja-vardmottagning/'
-  - '1177. (2025). Om du inte är nöjd med vården. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/om-du-inte-ar-nojd/'
-  - 'Inspektionen för vård och omsorg. (2025). Anmäla klagomål på vården. IVO. https://www.ivo.se/anmala-och-rapportera/'
+  - '1177. (2026). Vårdgarantin. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/lagar-och-bestammelser/vardgaranti/'
+  - '1177. (2026). Ny medicinsk bedömning. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/om-du-inte-ar-nojd/ny-medicinsk-bedomning/'
+  - '1177. (2026). Patientlagen. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/var-med-och-bestam-om-din-vard/patientlagen/'
+  - '1177. (2026). Om du inte är nöjd med vården. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/om-du-inte-ar-nojd/'
+  - 'Socialstyrelsen. (2026). Patientlagen. Samlat stöd för patientsäkerhet. https://patientsakerhet.socialstyrelsen.se/lagar-och-foreskrifter/centrala-lagar/patientlagen/'
+  - 'Inspektionen för vård och omsorg. (2026). Anmäla klagomål på vården. IVO. https://www.ivo.se/anmala-och-rapportera/'
 relatedArticles:
   - title: 'Tvångsvård – vad LPT och LVM faktiskt innebär'
     url: '/artiklar/rattigheter-och-stod/vad-tvangsvard-faktist-innebar/'
@@ -32,9 +33,16 @@ Att veta vad du har rätt till gör inte köerna kortare. Men det gör skillnad 
 
 ## Att söka vård
 
-**Vårdgarantin gäller även psykiatrin.** Den innebär att du ska få kontakt med primärvården samma dag du söker, träffa legitimerad personal inom några dagar om det behövs, och få tid hos specialist inom en angiven tidsgräns efter remiss.
+**Vårdgarantin gäller även psykiatrin.** Den sätter fyra tidsgränser:
 
-Hålls inte tidsgränserna har du rätt att få vård hos en annan vårdgivare, i din egen eller i en annan region. Regionen ska hjälpa dig hitta den. Det sker sällan automatiskt – du behöver ofta påtala att garantin överskridits och be om hjälp att hitta alternativ.
+- **Kontakt med primärvården** samma dag som du söker
+- **Medicinsk bedömning** av läkare eller annan legitimerad personal inom högst tre dagar
+- **Besök i specialiserad vård** inom 90 dagar, om mottagningen bedömer att du behöver det
+- **Behandling** inom 90 dagar från att beslutet om behandling fattades
+
+Hålls inte tidsgränserna ska regionen erbjuda dig vård hos en annan vårdgivare, i din egen eller i en annan region, utan extra kostnad för dig. Du kan också byta vårdcentral.
+
+Det sker sällan automatiskt. Du behöver ofta påtala att garantin överskridits och uttryckligen be om hjälp att hitta ett alternativ.
 
 **Vägar in.** Vårdcentralen är ofta första steget och kan erbjuda bedömning, samtalsstöd och läkemedel vid lindrig till måttlig ohälsa. Många har psykolog eller kurator. Krävs specialistvård skrivs remiss till psykiatrin.
 
@@ -52,9 +60,11 @@ Hur omfattande den blir beror på besvären. Neuropsykiatriska utredningar är o
 
 Förstår du inte informationen har du rätt att be om förtydligande. Personalen ska anpassa sig efter dina förutsättningar och försäkra sig om att du förstått – det är deras ansvar, inte ditt.
 
-**Du har rätt till en ny bedömning.** Har du fått en diagnos eller ett besked du inte känner dig trygg med kan du begära en ny medicinsk bedömning av en annan läkare. Det gäller särskilt vid allvarliga tillstånd eller när diagnosen får stor betydelse för din framtid.
+**Ny medicinsk bedömning.** Här är det värt att skilja på vad du har *rätt* till och vad du alltid kan *be om*.
 
-Du kan be din läkare ordna det, eller själv söka en annan vårdgivare.
+Den lagstadgade rätten till en ny medicinsk bedömning gäller vid livshotande eller särskilt allvarlig sjukdom eller skada. Då kan du få en annan läkares bedömning, inom eller utanför din egen region, och regionen betalar både bedömningen, en eventuell behandling och resan.
+
+Är ditt tillstånd inte så allvarligt finns ingen sådan ovillkorlig rätt — men du kan alltid fråga. Många mottagningar ordnar det ändå, och du kan söka öppen specialistvård i en annan region på egen hand. Att vilja ha en andra bedömning betyder inte att du är missnöjd; det kan lika gärna handla om att känna dig trygg med beslutet.
 
 ## Behandling och delaktighet
 

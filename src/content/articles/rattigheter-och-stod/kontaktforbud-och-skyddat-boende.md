@@ -7,14 +7,15 @@ author: Stödlinjers redaktion
 collection: rattigheter-och-stod
 tags: ["säkerhet", "våld-i-nära-relationer", "rättigheter", "socialtjänsten", "boende", "kvinnofridslinjen"]
 readingTime: 9 min
-draft: true
 references:
+  - 'Åklagarmyndigheten. (2026). Kontaktförbud. Åklagarmyndigheten. https://www.aklagare.se/fran-brott-till-rattegang/brottsutredningen/kontaktforbud/'
+  - 'Polismyndigheten. (2026). Kontaktförbud. Polisen. https://polisen.se/utsatt-for-brott/hjalp-och-stod-fran-samhallet/kontaktforbud/'
   - 'SFS 1988:688. Lag om kontaktförbud. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-1988688-om-kontaktforbud_sfs-1988-688/'
-  - 'Polismyndigheten. (2025). Kontaktförbud. Polisen. https://polisen.se/utsatt-for-brott/olika-typer-av-brott/kontaktforbud/'
-  - 'Åklagarmyndigheten. (2025). Kontaktförbud. Åklagarmyndigheten. https://www.aklagare.se/om-brottsligheten/olika-brottstyper/kontaktforbud/'
-  - 'Skatteverket. (2025). Skyddade personuppgifter. Skatteverket. https://www.skatteverket.se/privat/folkbokforing/skyddadepersonuppgifter.html'
-  - 'Socialstyrelsen. (2025). Skyddat boende. Socialstyrelsen. https://www.socialstyrelsen.se/kunskapsstod-och-regler/omraden/vald-och-brott/'
-  - 'Nationellt centrum för kvinnofrid. (2025). Kunskapsbanken: Skydd och stöd. Uppsala universitet. https://nck.uu.se/kunskapsbanken/'
+  - 'SFS 2024:79. Lag om placering av barn i skyddat boende. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-202479-om-placering-av-barn-i-skyddat_sfs-2024-79/'
+  - 'Socialstyrelsen. (2024). Nya bestämmelser om skyddat boende. Meddelandeblad 2024-3-8989. Socialstyrelsen. https://www.socialstyrelsen.se/publikationer/nya-bestammelser-om-skyddat-boende--meddelandeblad-2024-3-8989/'
+  - 'Inspektionen för vård och omsorg. (2026). Tillstånd för skyddat boende. IVO. https://www.ivo.se/vard-omsorgsgivare/tillstand/sol-verksamheter/tillstand-for-skyddat-boende/'
+  - 'Skatteverket. (2026). Skyddade personuppgifter. Skatteverket. https://www.skatteverket.se/privat/folkbokforing/skyddadepersonuppgifter.html'
+  - 'Nationellt centrum för kvinnofrid. (2026). Kunskapsbanken: Skydd och stöd. Uppsala universitet. https://nck.uu.se/kunskapsbanken/'
 relatedArticles:
   - title: 'Varför lämnar man inte bara? – psykologin bakom att stanna'
     url: '/artiklar/kvinnors-halsa/varfor-lamnar-man-inte-bara/'
@@ -38,13 +39,17 @@ Ett kontaktförbud är ett beslut som förbjuder en person att kontakta eller n�
 
 **Vanligt kontaktförbud** gäller i hela landet men innebär inga geografiska begränsningar i övrigt. Personen får vistas var som helst, så länge hen inte söker kontakt med dig.
 
-**Utvidgat kontaktförbud** förbjuder personen att vistas i närheten av din bostad, arbetsplats eller andra platser du brukar vara. Det kräver normalt att ett vanligt förbud redan överträtts, eller att det finns särskilda skäl att tro att det inte kommer att respekteras.
+**Utvidgat kontaktförbud** förbjuder personen att vistas inom ett eller flera områden kring din bostad, arbetsplats eller andra platser du brukar vara. Det används när ett vanligt förbud inte bedöms räcka.
 
-**Särskilt utvidgat kontaktförbud** omfattar ett större område och används bara när risken bedöms som mycket hög.
+**Särskilt utvidgat kontaktförbud** omfattar ett större område. Det förutsätter inte att ett tidigare förbud har överträtts — det kan också beslutas när det finns en påtaglig risk för att personen begår brott som innebär ett allvarligt angrepp på ditt liv, din hälsa eller din frihet.
 
 **Kontaktförbud avseende gemensam bostad** innebär att personen förbjuds vistas i ert gemensamma hem. Det gäller en begränsad tid åt gången och kräver risk för brott mot liv, hälsa, frihet eller frid.
 
-I vissa fall kan ett förbud förenas med **elektronisk övervakning** (fotboja), som larmar om personen närmar sig de områden förbudet gäller.
+### Elektronisk övervakning
+
+Ett utvidgat eller särskilt utvidgat kontaktförbud kan förenas med **elektronisk övervakning** (fotboja), som larmar om personen närmar sig ett förbjudet område.
+
+Sedan lagändringarna som trädde i kraft i juli 2025 är övervakning inte längre ett undantag. Ett särskilt utvidgat kontaktförbud **ska** förenas med elektronisk övervakning, om det inte finns särskilda skäl som talar emot det.
 
 ### Så ansöker du
 
@@ -68,6 +73,8 @@ Det är därför det sällan används ensamt.
 
 Skyddat boende är ett tillfälligt boende med hemlig adress och personal med särskild kunskap om våld och hot. Det kan drivas av kommunen, av ideella organisationer som kvinnojourer, eller av privata aktörer.
 
+Sedan april 2024 är skyddat boende en reglerad boendeinsats inom socialtjänsten, och den som driver skyddat boende yrkesmässigt behöver tillstånd från Inspektionen för vård och omsorg (IVO). Det innebär tydligare krav på verksamheten än tidigare.
+
 Du får inte bara någonstans att bo. Boendena erbjuder oftast samtalsstöd, hjälp med myndighetskontakter, säkerhetsplanering och ibland juridisk rådgivning.
 
 ### Vem kan få det
@@ -86,7 +93,9 @@ Socialtjänsten gör en individuell bedömning av ditt skyddsbehov.
 
 ### Med barn
 
-Barn följer med. Många boenden har personal med särskild kompetens för barn som upplevt våld.
+Barn som följer med är inte längre en bihang till förälderns ärende. Sedan april 2024 ska barnets behov bedömas för sig, och barnet får ett **eget beslut** om att placeras i det skyddade boendet. Barnet ska också ha en egen särskilt utsedd socialsekreterare.
+
+Om en vårdnadshavare beviljas skyddat boende och barnets trygghet eller hälsa riskeras kan barnet i vissa fall placeras tillsammans med vårdnadshavaren även utan den andra vårdnadshavarens samtycke.
 
 Skola och förskola blir en praktisk fråga – barnet kan behöva byta tillfälligt eller vara hemma av säkerhetsskäl. Personalen hjälper till med den kontakten.
 
@@ -110,17 +119,17 @@ Det finns tre nivåer, med mycket olika styrka.
 
 ### Vad som krävs
 
-För sekretessmarkering behövs en konkret hotbild – att du utsatts för våld eller förföljelse av någon som aktivt söker efter dig. Polisanmälan krävs inte, men dokumentation underlättar.
+För sekretessmarkering behövs att du eller någon närstående riskerar att skadas om uppgifterna lämnas ut. Du behöver inte ha flyttat, och skyddet kan i vissa fall vara förebyggande – exempelvis om du är utsatt i din yrkesroll eller ska vittna. Polisanmälan krävs inte, men dokumentation underlättar.
 
-Skyddad folkbokföring kräver ett mer kvalificerat hot, och Skatteverket bedömer om andra åtgärder räcker.
+Skyddad folkbokföring kräver risk för brott, förföljelse eller allvarliga trakasserier, och förutsätter i regel att du har flyttat. Skatteverket bedömer om andra åtgärder räcker.
 
-Fingerade personuppgifter beviljas i undantagsfall, exempelvis vid mycket allvarlig hotbild kopplad till organiserad brottslighet eller hedersrelaterat våld.
+Fingerade personuppgifter beviljas i undantagsfall, vid risk för allvarlig brottslighet som hotar liv, hälsa eller frihet.
 
 ### Så ansöker du
 
-Sekretessmarkering och skyddad folkbokföring: ansökan till Skatteverket. Polisen, socialtjänsten eller en kvinnojour kan hjälpa dig att skriva den. Beskriv hotet konkret och bifoga det du har – polisanmälningar, läkarintyg, hotfulla meddelanden.
+Sekretessmarkering och skyddad folkbokföring: ansökan till Skatteverket, på deras blanketter. Polisen, socialtjänsten eller en kvinnojour kan hjälpa dig att skriva den. Beskriv hotet konkret och bifoga det du har – polisanmälningar, läkarintyg, hotfulla meddelanden.
 
-Fingerade personuppgifter: ansökan görs via polisen och prövas i domstol.
+Fingerade personuppgifter: ansökan görs hos Polismyndigheten.
 
 ### Att leva med det
 
@@ -128,7 +137,7 @@ Skyddet ger också praktiska svårigheter. Du behöver vara vaksam på att inte 
 
 Med skyddad folkbokföring stämmer inte din officiella adress med var du bor. Post behöver vidarebefordras, och i kontakt med myndigheter och vårdgivare behöver du ofta förklara situationen.
 
-Skyddet omprövas regelbundet. Du behöver då visa att hotet kvarstår.
+Skyddad folkbokföring beslutas vanligtvis tills vidare, men kan tidsbegränsas om det finns skäl för det. Hur just ditt skydd följs upp framgår av beslutet – fråga Skatteverket om något är oklart.
 
 ## Att kombinera dem
 

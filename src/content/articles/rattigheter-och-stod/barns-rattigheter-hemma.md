@@ -7,13 +7,15 @@ author: Stödlinjers redaktion
 collection: rattigheter-och-stod
 tags: ["barn-som-anhörig", "rättigheter", "socialtjänsten", "skola", "trygg-vuxen", "söka-hjälp"]
 readingTime: 8 min
-draft: true
 references:
+  - 'SFS 2025:400. Socialtjänstlag. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/socialtjanstlag-2025400_sfs-2025-400/'
   - 'SFS 2018:1197. Lag om Förenta nationernas konvention om barnets rättigheter. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/lag-20181197-om-forenta-nationernas_sfs-2018-1197/'
   - 'SFS 2017:30. Hälso- och sjukvårdslag. Sveriges riksdag. https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/halso--och-sjukvardslag_sfs-2017-30/'
-  - 'Socialstyrelsen. (2025). Barn som anhöriga. Socialstyrelsen. https://www.socialstyrelsen.se/kunskapsstod-och-regler/omraden/barn-och-unga/'
-  - 'Socialstyrelsen. (2025). Anmäla oro för barn. Socialstyrelsen. https://www.socialstyrelsen.se/kunskapsstod-och-regler/regler-och-riktlinjer/anmala-oro-for-barn/'
-  - 'Barnombudsmannen. (2025). Barnkonventionen. Barnombudsmannen. https://www.barnombudsmannen.se/barnkonventionen/'
+  - 'Socialstyrelsen. (2025). Ny socialtjänstlag 2025 – förberedelser och förändringar. Socialstyrelsen. https://www.socialstyrelsen.se/aktuellt/ny-socialtjanstlag-2025--forberedelser-och-forandringar/'
+  - 'Socialstyrelsen. (2026). Anmäla oro för barn. Socialstyrelsen. https://www.socialstyrelsen.se/kunskapsstod-och-regler/regler-och-riktlinjer/anmala-oro-for-barn/'
+  - 'Socialstyrelsen. (2026). Barn och unga i hälso- och sjukvården. Socialstyrelsen. https://www.socialstyrelsen.se/kunskapsstod-och-regler/omraden/barn-och-unga/barn-och-unga-i-halso--och-sjukvarden/'
+  - '1177. (2026). Barns och vårdnadshavares rättigheter i vården. 1177 Vårdguiden. https://www.1177.se/sa-fungerar-varden/var-med-och-bestam-om-din-vard/barns-och-vardnadshavares-rattigheter-i-varden/'
+  - 'Barnombudsmannen. (2026). Barnkonventionen. Barnombudsmannen. https://www.barnombudsmannen.se/barnkonventionen/'
   - 'BRIS. (2026). Stöd till barn och unga. BRIS. https://www.bris.se/'
 relatedArticles:
   - title: 'När socialtjänsten utreder din familj – dina rättigheter vid en orosanmälan'
@@ -34,7 +36,9 @@ Den här texten går igenom vad de rättigheterna innebär i praktiken – och h
 
 **Barnkonventionen är svensk lag sedan 2020.** Det innebär att myndigheter och domstolar är skyldiga att beakta barnets rättigheter i alla beslut som rör barn. Bland de centrala principerna finns barnets rätt till liv och utveckling, rätten att komma till tals, och att barnets bästa ska vara vägledande. Konventionen slår också uttryckligen fast att barn har rätt till skydd mot alla former av fysiskt eller psykiskt våld, vanvård och försumlig behandling.
 
-**Socialtjänstlagen** pekar särskilt ut just de här barnen. Socialnämnden ska särskilt uppmärksamma och erbjuda stöd till barn som lever med föräldrar som har missbruksproblem eller psykisk ohälsa, och till barn som utsätts eller bevittnar våld i familjen. Formuleringen är viktig: ansvaret är aktivt, inte avvaktande.
+**Socialtjänstlagen** pekar särskilt ut just de här barnen. Socialnämnden ska uppmärksamma och erbjuda stöd till barn som lever nära någon med missbruksproblem eller psykisk ohälsa, och till barn som utsätts för eller bevittnar våld i familjen. Formuleringen är viktig: ansvaret är aktivt, inte avvaktande.
+
+Sverige fick en **ny socialtjänstlag den 1 juli 2025**. Den förtydligar bland annat kommunens ansvar för barn som är anhöriga, ställer tydligare krav på hur orosanmälningar dokumenteras, och stärker barnets rätt till information. Grunderna nedan gäller alltså fortfarande — men de är om något starkare än tidigare.
 
 Lagen slår också fast att barnets bästa ska vara avgörande vid beslut om insatser, och att barnet har rätt till information och att komma till tals utifrån ålder och mognad.
 
@@ -87,7 +91,9 @@ Ett barn behöver inte vänta på att en vuxen agerar.
 
 **Ring eller chatta med BRIS (116 111).** Där kan barn prata anonymt med en vuxen, sortera tankar och få veta vilka möjligheter som finns. Numret syns inte på telefonräkningen.
 
-**Söka vård.** Från omkring tolv års ålder kan unga i vissa fall söka viss vård utan föräldrars samtycke, beroende på vårdbehovet och barnets mognad. Ungdomsmottagningar tar emot unga upp till omkring 25 år, kostnadsfritt, och dit går det att gå utan att föräldrarna vet.
+**Söka vård.** Det finns **ingen fast åldersgräns** för när ett barn får vara med och bestämma om sin egen vård. Vårdpersonalen gör en bedömning av mognad i just den fråga det gäller — och ett barn som bedöms moget nog kan också bestämma själv. Ju äldre barnet blir, desto mer väger den egna viljan.
+
+Ungdomsmottagningar är kostnadsfria och tar emot unga utan att vårdnadshavare behöver vara med eller få veta. Vilka åldrar som gäller varierar mellan regioner, så kolla vad som står på din mottagning.
 
 ## När barnet inte vill ha hjälp
 
