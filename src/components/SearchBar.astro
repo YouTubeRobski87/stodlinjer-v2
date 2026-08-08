@@ -7,11 +7,11 @@ import Icon from "./Icon.astro";
 interface Props {
   placeholder?: string;
 }
-const { placeholder = "Sök stödlinjer…" } = Astro.props;
+const { placeholder = "Sök stödlinjer och artiklar…" } = Astro.props;
 ---
 
 <div class="searchbar" role="search">
-  <label for="line-search-floating" class="sr-only">Sök stödlinjer</label>
+  <label for="line-search-floating" class="sr-only">Sök stödlinjer och artiklar</label>
   <span class="searchbar__icon" aria-hidden="true">
     <Icon name="round-magnifying-glass" size={20} />
   </span>

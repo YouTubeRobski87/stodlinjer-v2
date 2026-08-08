@@ -9,6 +9,7 @@
 // testable and what makes it safe to run when the AI provider is down.
 
 import type { VerifiedSupportLine } from "./verifiedCatalog.ts";
+import { fieldTokens, foldSwedish, matchesToken, tokenize } from "./searchText.ts";
 
 export type ContactMethod = "phone" | "chat" | "web";
 
@@ -57,59 +58,11 @@ const DEFAULT_LIMIT = 5;
 
 // ── Normalisation ───────────────────────────────────────────────────────────
 //
-// Folding å/ä/ö lets a query typed either way reach the same records. It is a
-// MATCHING device only: display text always comes from the verified record, so
-// the folded form never reaches a reader.
+// Now lives in ./searchText.ts so the article search on the homepage matches
+// with identical rules. Re-exported here to keep this module's public surface
+// unchanged for existing importers.
 
-export function foldSwedish(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/[åä]/g, "a")
-    .replace(/ö/g, "o")
-    .replace(/é/g, "e")
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
-}
-
-// Grammatical filler only — nothing topical. "för" must never be what makes a
-// line match, but "hjälp", "barn" and "våld" always must.
-const STOPWORDS = new Set([
-  "och", "att", "som", "det", "den", "har", "kan", "med", "for", "pa", "av", "en", "ett",
-  "jag", "min", "mitt", "mina", "du", "din", "ditt", "vi", "de", "om", "till", "fran",
-  "ar", "var", "inte", "man", "sig", "nagon", "nagot", "sa", "men", "eller", "vid",
-]);
-
-function tokenize(value: string): string[] {
-  return foldSwedish(value)
-    .replace(/[^a-z0-9\s-]/g, " ")
-    .split(/[\s-]+/)
-    .filter((t) => t.length > 1 && !STOPWORDS.has(t));
-}
-
-/**
- * Token-level match, not raw substring. Substring matching made short tokens
- * hit anything ("for" inside "Riksföreningen"), which is how a nonsense query
- * ends up looking like a real result. Equality always counts; a prefix counts
- * from 4 characters (so "angest" reaches "angestforbundet"); an interior match
- * needs 5, enough that it is unlikely to be an accident.
- */
-function matchesToken(haystackTokens: string[], t: string): boolean {
-  for (const h of haystackTokens) {
-    if (h === t) return true;
-    if (t.length >= 4 && (h.startsWith(t) || t.startsWith(h))) return true;
-    if (t.length >= 5 && h.includes(t)) return true;
-  }
-  return false;
-}
-
-function fieldTokens(...values: string[]): string[] {
-  return values.flatMap((v) =>
-    foldSwedish(v)
-      .replace(/[^a-z0-9\s-]/g, " ")
-      .split(/[\s-]+/)
-      .filter(Boolean),
-  );
-}
+export { foldSwedish } from "./searchText.ts";
 
 function hasContact(line: VerifiedSupportLine, method: ContactMethod): boolean {
   switch (method) {

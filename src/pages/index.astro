@@ -98,7 +98,7 @@ function cardPropsOf(line: Line) {
         <span class="hero-search__icon" aria-hidden="true">
           <Icon name="round-magnifying-glass" size={22} />
         </span>
-        <label for="line-search" class="sr-only">Sök stödlinjer</label>
+        <label for="line-search" class="sr-only">Sök stödlinjer och artiklar</label>
         <input
           id="line-search"
           type="search"
@@ -145,6 +145,12 @@ function cardPropsOf(line: Line) {
     </section>
 
     <section id="stodlinjer" class="lines container--wide">
+      {/* Group headings appear only while a search is active. With an empty
+          query the page reads exactly as before: one unlabelled card grid. */}
+      <h2 id="lines-heading" class="results__heading" hidden>
+        Stödlinjer <span class="results__count mono" id="lines-count"></span>
+      </h2>
+
       <div class="grid">
         {
           lines.map((line) => {
@@ -181,7 +187,31 @@ function cardPropsOf(line: Line) {
       <p id="grid-empty" class="grid__empty" hidden>
         Inga stödlinjer matchar din sökning.
       </p>
+
+      <h2 id="articles-heading" class="results__heading" hidden>
+        Artiklar <span class="results__count mono" id="articles-count"></span>
+      </h2>
+      <div class="grid" id="article-results" hidden></div>
+
+      {/* Shown only when both groups are empty, so a miss reads as one calm
+          message rather than two separate failures. */}
+      <p id="search-empty" class="grid__empty" hidden>
+        Inga träffar på din sökning.
+      </p>
+
+      <p class="sr-only" id="results-status" role="status" aria-live="polite"></p>
     </section>
+
+    {/* Cloned per article hit. Authored here (not built as a string in JS) so
+        Astro's scoped styles apply to the cloned nodes. */}
+    <template id="article-result-tpl">
+      <article class="aresult">
+        <span class="aresult__rule" aria-hidden="true"></span>
+        <span class="aresult__kind mono" data-kind></span>
+        <a class="aresult__title" data-title href="#"></a>
+        <p class="aresult__desc" data-desc></p>
+      </article>
+    </template>
 
   </main>
 
@@ -456,6 +486,78 @@ function cardPropsOf(line: Line) {
     font-size: 1rem;
   }
 
+  /* ── Search result groups ───────────────────────────────── */
+  .results__heading {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-block: var(--space-8) var(--space-4);
+  }
+  .results__heading:first-child {
+    margin-top: 0;
+  }
+  .results__count {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    font-weight: 400;
+  }
+
+  /* Article hit. Mirrors the article card in /artiklar/ but is rendered from
+     the JSON index, so it lives here rather than in ArticleCard.astro. */
+  .aresult {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border: var(--hairline) solid var(--border);
+    border-radius: var(--radius-card);
+    background: var(--surface);
+    transition:
+      transform 0.16s ease,
+      border-color 0.16s ease;
+  }
+  .aresult:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--foreground) 22%, transparent);
+  }
+  .aresult__rule {
+    display: block;
+    width: 28px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent-soft-fg, var(--accent));
+  }
+  .aresult__kind {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .aresult__title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--foreground);
+    text-decoration: none;
+  }
+  /* Whole card clickable without nesting interactive elements. */
+  .aresult__title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .aresult__title:hover {
+    text-decoration: underline;
+  }
+  .aresult__desc {
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+
   /* ── Support-line modal ─────────────────────────────────── */
   .line-modal {
     position: relative;
@@ -559,26 +661,160 @@ function cardPropsOf(line: Line) {
 
 <script>
   // Owns the category pills + the two synced search fields (the hero field and
-  // the floating ⌘K bar), filtering the card grid.
+  // the floating ⌘K bar). Support lines are server-rendered cards filtered in
+  // place; articles come from /search-index.json, fetched on first keystroke.
+  import { fieldTokens, matchStrength, tokenize } from "../lib/searchText.ts";
+
   const inputs = Array.from(document.querySelectorAll<HTMLInputElement>(".js-line-search"));
   const heroInput = document.getElementById("line-search") as HTMLInputElement | null;
   const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-card]"));
   const pills = Array.from(document.querySelectorAll<HTMLElement>(".pill"));
   const empty = document.getElementById("grid-empty");
+  const linesHeading = document.getElementById("lines-heading");
+  const linesCount = document.getElementById("lines-count");
+  const articlesHeading = document.getElementById("articles-heading");
+  const articlesCount = document.getElementById("articles-count");
+  const articleResults = document.getElementById("article-results");
+  const searchEmpty = document.getElementById("search-empty");
+  const status = document.getElementById("results-status");
+  const tpl = document.getElementById("article-result-tpl") as HTMLTemplateElement | null;
+
+  interface ArticleDoc {
+    type: "article";
+    title: string;
+    description: string;
+    tags: string[];
+    collection: string;
+    collectionLabel: string;
+    url: string;
+  }
+  type IndexedDoc = ArticleDoc & {
+    titleTokens: string[];
+    tagTokens: string[];
+    descTokens: string[];
+  };
 
   let activeCat = "all";
   let query = "";
+  // Guards against an earlier fetch resolving after a later keystroke.
+  let runToken = 0;
+
+  // ── Article index ────────────────────────────────────────────────
+  // Fetched once, lazily. Tokenised on arrival so each keystroke only scores.
+  let indexPromise: Promise<IndexedDoc[]> | null = null;
+  function loadIndex(): Promise<IndexedDoc[]> {
+    if (!indexPromise) {
+      indexPromise = fetch("/search-index.json")
+        .then((r) => (r.ok ? (r.json() as Promise<ArticleDoc[]>) : []))
+        .then((docs) =>
+          docs.map((d) => ({
+            ...d,
+            titleTokens: fieldTokens(d.title),
+            tagTokens: fieldTokens(...d.tags, d.collectionLabel),
+            descTokens: fieldTokens(d.description),
+          })),
+        )
+        // Search is an enhancement — a failed fetch must never break the page.
+        .catch(() => [] as IndexedDoc[]);
+    }
+    return indexPromise;
+  }
+
+  // Title beats tags beats description, and an exact token beats a fuzzy one
+  // (×2). Without that second axis "Trygg hemma?" ties with "Trygghetsplan"
+  // for the query "trygghetsplan". Every query token has to land somewhere, so
+  // a second word narrows the result instead of widening it.
+  // Spread so a field always outranks the one below it, even when the lower
+  // field matched exactly and the higher one only fuzzily: a fuzzy title (10)
+  // still beats an exact tag (6). "Title väger högst" holds unconditionally.
+  const W_TITLE = 10;
+  const W_TAG = 3;
+  const W_DESC = 1;
+
+  function scoreDoc(doc: IndexedDoc, tokens: string[]): number {
+    let score = 0;
+    for (const t of tokens) {
+      const inTitle = matchStrength(doc.titleTokens, t);
+      const inTags = matchStrength(doc.tagTokens, t);
+      const inDesc = matchStrength(doc.descTokens, t);
+      const best = Math.max(inTitle * W_TITLE, inTags * W_TAG, inDesc * W_DESC);
+      if (best === 0) return 0;
+      score += best;
+    }
+    return score;
+  }
+
+  function renderArticles(hits: IndexedDoc[]) {
+    if (!articleResults || !tpl) return;
+    const frag = document.createDocumentFragment();
+    for (const hit of hits) {
+      const node = tpl.content.firstElementChild!.cloneNode(true) as HTMLElement;
+      const kind = node.querySelector<HTMLElement>("[data-kind]");
+      const title = node.querySelector<HTMLAnchorElement>("[data-title]");
+      const desc = node.querySelector<HTMLElement>("[data-desc]");
+      if (kind) kind.textContent = `Artikel · ${hit.collectionLabel}`;
+      if (title) {
+        title.textContent = hit.title;
+        title.href = hit.url;
+      }
+      if (desc) desc.textContent = hit.description;
+      frag.append(node);
+    }
+    articleResults.replaceChildren(frag);
+  }
+
+  function paint(nLines: number, nArticles: number, searching: boolean) {
+    if (linesHeading) linesHeading.hidden = !searching || nLines === 0;
+    if (linesCount) linesCount.textContent = String(nLines);
+    if (articlesHeading) articlesHeading.hidden = !searching || nArticles === 0;
+    if (articlesCount) articlesCount.textContent = String(nArticles);
+    if (articleResults) articleResults.hidden = nArticles === 0;
+    // The lines-only message stays for the no-query pill case; while searching
+    // a miss reads as one combined message instead of two.
+    if (empty) empty.hidden = searching || nLines !== 0;
+    if (searchEmpty) searchEmpty.hidden = !(searching && nLines === 0 && nArticles === 0);
+    if (status) {
+      const l = nLines === 1 ? "1 stödlinje" : `${nLines} stödlinjer`;
+      const a = nArticles === 1 ? "1 artikel" : `${nArticles} artiklar`;
+      status.textContent = searching ? `${l} och ${a} matchar din sökning.` : "";
+    }
+  }
 
   function apply() {
-    let visible = 0;
+    let visibleLines = 0;
     for (const card of cards) {
       const matchCat = activeCat === "all" || card.dataset.cat === activeCat;
       const matchText = query === "" || (card.dataset.search ?? "").includes(query);
       const show = matchCat && matchText;
       card.classList.toggle("is-hidden", !show);
-      if (show) visible++;
+      if (show) visibleLines++;
     }
-    if (empty) empty.hidden = visible !== 0;
+
+    const searching = query !== "";
+    // Article topics are a different taxonomy from the line categories, so the
+    // pills stay a line filter and articles stand down while one is active.
+    const wantArticles = searching && activeCat === "all";
+    const tokens = wantArticles ? tokenize(query) : [];
+
+    if (tokens.length === 0) {
+      runToken++;
+      renderArticles([]);
+      paint(visibleLines, 0, searching);
+      return;
+    }
+
+    const token = ++runToken;
+    paint(visibleLines, 0, searching);
+    void loadIndex().then((docs) => {
+      if (token !== runToken) return;
+      const hits = docs
+        .map((d) => ({ doc: d, score: scoreDoc(d, tokens) }))
+        .filter((r) => r.score > 0)
+        .sort((a, b) => b.score - a.score || a.doc.title.localeCompare(b.doc.title, "sv"))
+        .map((r) => r.doc);
+      renderArticles(hits);
+      paint(visibleLines, hits.length, true);
+    });
   }
 
   // One query, mirrored across every search field so the hero field and the

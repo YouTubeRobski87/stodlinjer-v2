@@ -57,6 +57,7 @@ const search = [name, shortDescription, categoryLabel, ...keywords]
 <article
   class="card"
   data-card
+  data-kind="line"
   data-cat={categoryId}
   data-search={search}
   style={`--c: var(--cat-${categoryColor}, var(--accent-soft)); --c-fg: var(--cat-${categoryColor}-fg, var(--accent-soft-fg));`}
@@ -65,6 +66,9 @@ const search = [name, shortDescription, categoryLabel, ...keywords]
     <span class="card__chip" aria-hidden="true">
       <CategoryIcon name={categoryIcon} size={22} />
     </span>
+    {/* The visible type lives in the "Stödlinjer" results heading; this keeps
+        the same information available when a card is read on its own. */}
+    <span class="sr-only">Stödlinje.</span>
     <span class="card__cat">{categoryLabel}</span>
 
     {
