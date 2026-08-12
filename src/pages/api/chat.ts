@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 import { buildSystemPrompt, type UiMode } from "../../lib/stodkompassen";
 import { detectCrisis, crisisDirective } from "../../lib/crisisDetect";
 
@@ -57,7 +57,30 @@ const ERROR_TEXT =
 const env = (name: string): string | undefined =>
   (import.meta.env[name] as string | undefined) ?? process.env[name];
 
-const apiKey = env("ANTHROPIC_API_KEY");
+// Global daglig budget (in-memory; one Render instance) — ett tak oberoende
+// av hur många olika IP:er som frågar, så att ett spammat/utnyttjat läge inte
+// kan dränera hela AI-kreditsaldot på en dag (det hände 2026-08-12). Justera
+// vid behov med STODKOMPASSEN_DAILY_BUDGET i Render, ingen kodändring krävs.
+const DAILY_MESSAGE_BUDGET = Number(env("STODKOMPASSEN_DAILY_BUDGET")) || 300;
+let budgetDay = "";
+let budgetCount = 0;
+
+function dailyBudgetOk(): boolean {
+  const today = new Date().toISOString().slice(0, 10); // UTC-dygn
+  if (today !== budgetDay) {
+    budgetDay = today;
+    budgetCount = 0;
+  }
+  if (budgetCount >= DAILY_MESSAGE_BUDGET) return false;
+  budgetCount += 1;
+  return true;
+}
+
+// 2026-08-12: bytte leverantör från Anthropic till OpenAI (samma leverantör
+// och nyckel-/modellvariabler som MittPsykes huvudchatt använder) sedan
+// Anthropic-kontots kreditsaldo tog slut. Se OPENAI_API_KEY/OPENAI_CHAT_MODEL
+// i .env.example.
+const apiKey = env("OPENAI_API_KEY");
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -86,7 +109,7 @@ const json = (status: number, body: Record<string, unknown>) =>
 export const POST: APIRoute = async ({ request, clientAddress }) => {
   if (!apiKey) {
     console.error(
-      "[chat] ANTHROPIC_API_KEY saknas — satt varken i .env (dev) eller i miljön (Render).",
+      "[chat] OPENAI_API_KEY saknas — satt varken i .env (dev) eller i miljön (Render).",
     );
     return json(503, { error: "chat_unavailable" });
   }
@@ -100,6 +123,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
     "unknown";
   if (!rateLimit(ip)) {
     return json(429, { error: "rate_limited" });
+  }
+  if (!dailyBudgetOk()) {
+    console.error(
+      `[chat] Daglig budget nådd (${DAILY_MESSAGE_BUDGET} meddelanden) — avvisar tills UTC-dygnet vänder.`,
+    );
+    return json(503, { error: "daily_budget_reached" });
   }
 
   const raw = await request.text();
@@ -125,23 +154,16 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
   const directive = crisisDirective(crisis);
 
   const system = await buildSystemPrompt(uiMode);
-  const model = env("STODKOMPASSEN_MODEL") || "claude-opus-5";
-  // apiKey skickas in explicit: SDK:ns egen fallback läser bara process.env,
-  // som är tom under `astro dev`.
-  const client = new Anthropic({ apiKey });
+  // Samma variabelnamn som MittPsykes huvudchatt (src/lib/server/ai/text-generation.ts),
+  // så samma Render-konvention gäller på båda tjänsterna.
+  const model = env("OPENAI_CHAT_MODEL") || "gpt-5.4";
+  // apiKey skickas in explicit så att den funkar lika i `astro dev` (import.meta.env)
+  // och i Render (process.env) — se env()-hjälparen ovan.
+  const client = new OpenAI({ apiKey });
 
-  // System blocks: the (optional) crisis directive first as a small, NON-cached
-  // block, then the stable catalog prompt as the cached block. Keeping the
-  // directive separate preserves the ~0.1x cache read on the big block.
-  const systemBlocks: Anthropic.Messages.TextBlockParam[] = [];
-  if (directive) {
-    systemBlocks.push({ type: "text", text: directive });
-  }
-  systemBlocks.push({
-    type: "text",
-    text: system,
-    cache_control: { type: "ephemeral" },
-  });
+  // Crisis-direktivet (om något) läggs allra först i systempromten, före den
+  // stabila katalogtexten — samma prioritetsordning som tidigare.
+  const systemContent = directive ? `${directive}\n\n${system}` : system;
 
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({
@@ -151,47 +173,37 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
           encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`),
         );
       try {
-        const stream = client.messages.stream({
+        const stream = await client.chat.completions.create({
           model,
-          max_tokens: MAX_OUTPUT_TOKENS,
-          // Opus 5 tänker som default, och max_tokens är ett tak för tänkande
-          // PLUS svarstext. Med vår snäva budget (och ett svar som ska komma
-          // snabbt, till någon som mår dåligt) stänger vi av det explicit.
-          // Disabling thinking only works at effort "high" eller lägre — förlitade
-          // oss tidigare på att Anthropics default var "high", men det är inte
-          // garanterat att förbli så (2026-08-12: default höjdes uppenbarligen,
-          // vilket gjorde att thinking:disabled började ge 400 på varje anrop).
-          // Sätt därför effort explicit så vi aldrig hamnar i xhigh/max av misstag.
-          thinking: { type: "disabled" },
-          output_config: { effort: "high" },
-          // Crisis directive (if any) + stable, cached catalog block.
-          system: systemBlocks,
-          messages,
+          // gpt-5.x (och andra resonerande modeller) stödjer inte längre
+          // `max_tokens` — samma fält som MittPsykes "support-chat"-syfte
+          // använder för sin chattmodell.
+          max_completion_tokens: MAX_OUTPUT_TOKENS,
+          stream: true,
+          messages: [
+            { role: "system", content: systemContent },
+            ...messages,
+          ],
         });
 
-        let stopReason: string | null = null;
-        for await (const ev of stream) {
-          if (ev.type === "content_block_delta" && ev.delta.type === "text_delta") {
-            send("delta", { text: ev.delta.text });
-          } else if (ev.type === "message_delta") {
-            stopReason = ev.delta.stop_reason ?? stopReason;
-          }
+        let finishReason: string | null = null;
+        for await (const chunk of stream) {
+          const delta = chunk.choices[0]?.delta?.content;
+          if (delta) send("delta", { text: delta });
+          finishReason = chunk.choices[0]?.finish_reason ?? finishReason;
         }
 
-        if (stopReason === "refusal") send("notice", { text: REFUSAL_TEXT });
+        if (finishReason === "content_filter") send("notice", { text: REFUSAL_TEXT });
         send("done", {});
       } catch (err) {
-        // Aldrig meddelandeinnehåll (privacy-first) — men feltyp och status
-        // måste synas, annars går ett 401/404 från API:et inte att skilja
-        // från vilket annat fel som helst.
+        // Aldrig meddelandeinnehåll (privacy-first) — men feltyp, status och
+        // OpenAIs egen felbeskrivning av *vår request* (t.ex. "insufficient
+        // quota") är ofarliga att logga och gör 401/404/429 mycket lättare
+        // att skilja åt än en tom loggrad.
         const status = (err as { status?: number })?.status;
         const name = (err as { name?: string })?.name ?? "UnknownError";
-        // TEMP diagnostik (2026-08-12): err.message är Anthropics egen
-        // felbeskrivning av *vår request* (t.ex. "credit balance too low" eller
-        // en parametervalideringstext) — aldrig användarens meddelandeinnehåll,
-        // så den är säker att logga. Tas bort igen när felet är hittat.
         const detail = (err as { message?: string })?.message ?? "";
-        console.error(`[chat] Anthropic-anrop misslyckades: ${name}${status ? ` (HTTP ${status})` : ""} — modell: ${model} — detalj: ${detail}`);
+        console.error(`[chat] OpenAI-anrop misslyckades: ${name}${status ? ` (HTTP ${status})` : ""} — modell: ${model} — detalj: ${detail}`);
         send("error", { text: ERROR_TEXT });
       } finally {
         controller.close();
