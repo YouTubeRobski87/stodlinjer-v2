@@ -157,8 +157,13 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
           // Opus 5 tänker som default, och max_tokens är ett tak för tänkande
           // PLUS svarstext. Med vår snäva budget (och ett svar som ska komma
           // snabbt, till någon som mår dåligt) stänger vi av det explicit.
-          // Tillåtet så länge effort är "high" eller lägre — vi använder default.
+          // Disabling thinking only works at effort "high" eller lägre — förlitade
+          // oss tidigare på att Anthropics default var "high", men det är inte
+          // garanterat att förbli så (2026-08-12: default höjdes uppenbarligen,
+          // vilket gjorde att thinking:disabled började ge 400 på varje anrop).
+          // Sätt därför effort explicit så vi aldrig hamnar i xhigh/max av misstag.
           thinking: { type: "disabled" },
+          output_config: { effort: "high" },
           // Crisis directive (if any) + stable, cached catalog block.
           system: systemBlocks,
           messages,
