@@ -186,7 +186,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         // från vilket annat fel som helst.
         const status = (err as { status?: number })?.status;
         const name = (err as { name?: string })?.name ?? "UnknownError";
-        console.error(`[chat] Anthropic-anrop misslyckades: ${name}${status ? ` (HTTP ${status})` : ""} — modell: ${model}`);
+        // TEMP diagnostik (2026-08-12): err.message är Anthropics egen
+        // felbeskrivning av *vår request* (t.ex. "credit balance too low" eller
+        // en parametervalideringstext) — aldrig användarens meddelandeinnehåll,
+        // så den är säker att logga. Tas bort igen när felet är hittat.
+        const detail = (err as { message?: string })?.message ?? "";
+        console.error(`[chat] Anthropic-anrop misslyckades: ${name}${status ? ` (HTTP ${status})` : ""} — modell: ${model} — detalj: ${detail}`);
         send("error", { text: ERROR_TEXT });
       } finally {
         controller.close();
