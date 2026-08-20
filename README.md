@@ -127,7 +127,7 @@ endpoint, so it will switch `astro.config.mjs` from static to an on-demand
 (`hybrid`) output with an adapter — see the note in
 [`astro.config.mjs`](astro.config.mjs).
 
-This is a private project. © Robert Claesson
+This is a private project. © Johanna Fagerås och Robert Claesson
 
 ## Drift / Deployment
 
