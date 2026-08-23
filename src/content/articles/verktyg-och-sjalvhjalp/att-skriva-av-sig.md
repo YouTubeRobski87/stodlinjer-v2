@@ -68,6 +68,10 @@ Bestäm vad som händer sen. Vissa mår bra av att spara det de skrivit och läs
 
 En sak är värd att hålla i minnet: skrivandet är till för att lätta och bearbeta, inte för att mala. Att närma sig något svårt kan väcka starka känslor, och då är det helt okej att ta en paus. Om du märker att du fastnar i samma tunga varv gång på gång och bara mår sämre, kan det vara ett tecken på att du behöver något mer än papper och penna, och då finns det stöd att vända sig till.
 
+## Vill du skriva för dig själv?
+
+På MittPsyke kan du börja skriva utan att först skapa konto. <a href="https://www.mittpsyke.se/anonym-dagbok-online" target="_blank" rel="noopener noreferrer">Öppna den anonyma dagboken</a>.
+
 ## Vanliga frågor
 
 ### Måste jag vara bra på att skriva?

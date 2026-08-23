@@ -64,6 +64,10 @@ När ångesten är som värst handlar det första steget om att påminna kroppen
 
 På längre sikt finns hjälp som fungerar. Kognitiv beteendeterapi, KBT, är en av de behandlingsformer som har bäst stöd vid ångest, och den finns både hos behandlare och som internetbehandling via 1177. Om ångesten påverkar din vardag kan du vända dig till en vårdcentral, som kan hjälpa dig vidare. Vill du bara prata med någon eller få råd om var du kan söka hjälp kan du ringa 1177 för sjukvårdsrådgivning. Du behöver inte ha en diagnos eller veta exakt vad som är fel för att söka stöd. Det räcker att det känns tungt.
 
+## Vill du förstå mer om ångest?
+
+På MittPsyke finns guider om oro, kroppens reaktioner och små sätt att hantera ångest i vardagen. <a href="https://www.mittpsyke.se/guider/angest" target="_blank" rel="noopener noreferrer">Fördjupa dig om ångest i vardagen</a>.
+
 ## Vanliga frågor
 
 ### Kan ångest vara farligt?

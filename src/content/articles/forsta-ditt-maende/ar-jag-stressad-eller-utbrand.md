@@ -81,6 +81,10 @@ Kontakta en vårdcentral om du känner igen dig i något av det här:
 
 Ring 1177 om du vill ha vägledning om var du kan söka vård. Vid stressrelaterade besvär kan du få hjälp att förstå och hantera situationen, bland annat genom KBT, som finns både hos behandlare och via 1177. Om belastningen någon gång blir så tung att du inte längre vill leva, sök hjälp direkt och ring 112 vid akut fara.
 
+## Vill du förstå stressen bättre?
+
+På MittPsyke finns guider om belastning, återhämtning och hur stress kan märkas i vardagen. <a href="https://www.mittpsyke.se/guider/stress" target="_blank" rel="noopener noreferrer">Förstå stress och återhämtning i vardagen</a>.
+
 ## Vanliga frågor
 
 ### Är stress alltid skadligt?

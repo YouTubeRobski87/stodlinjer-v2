@@ -79,6 +79,10 @@ Om oron någon gång blir så stark att du får tankar på att inte vilja leva s
 
 En ihållande oro behöver du inte hantera ensam, och det finns hjälp som fungerar. Kognitiv beteendeterapi, KBT, har ofta god effekt vid oro och ångest, och den finns både hos behandlare och via 1177. Ibland kan även läkemedel vara en del av behandlingen. Vänd dig till en vårdcentral för att komma vidare, eller ring 1177 om du vill ha vägledning om var du kan söka vård. Du behöver inte ha en diagnos för att höra av dig.
 
+## Vill du förstå oron lite mer?
+
+På MittPsyke kan du läsa vidare om återkommande oro, grubblande och små sätt att skapa mer lugn i vardagen. <a href="https://www.mittpsyke.se/hjalp-mot-oro-online" target="_blank" rel="noopener noreferrer">Läs mer om oro och grubblande</a>.
+
 ## Vanliga frågor
 
 ### Varför känner jag oro fast inget är fel?

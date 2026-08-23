@@ -70,6 +70,10 @@ Om du är nedstämd finns mycket du kan göra själv, och det är också en bra 
 
 När det här inte räcker, eller när tyngden håller i sig, finns hjälp som fungerar. Vid lättare besvär börjar vården ofta med information och råd om vad du själv kan göra. Vid depression är kognitiv beteendeterapi, KBT, en av de mest välbelagda behandlingarna, och den finns både hos behandlare och via 1177. Ibland kan även läkemedel vara en del av behandlingen. Du behöver inte ha en färdig diagnos för att höra av dig. Kontakta en vårdcentral, eller ring 1177 om du vill ha vägledning om var du kan söka vård.
 
+## Vill du läsa vidare?
+
+På MittPsyke finns guider om nedstämdhet, låg ork och små steg i vardagen. <a href="https://www.mittpsyke.se/guider/depression" target="_blank" rel="noopener noreferrer">Läs mer om nedstämdhet och små steg</a>.
+
 ## Vanliga frågor
 
 ### Hur vet jag om jag är deprimerad eller bara nedstämd?

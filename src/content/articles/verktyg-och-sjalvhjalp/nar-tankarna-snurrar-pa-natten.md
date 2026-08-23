@@ -76,4 +76,8 @@ Om du ligger vaken och frustrerad en längre stund kan det hjälpa att gå upp o
 
 Om du sover dåligt natt efter natt under en längre tid, mår dåligt och fungerar sämre i vardagen, är det värt att höra av sig till en vårdcentral, eller ringa 1177 för råd. Vid långvariga besvär är KBT den behandling som rekommenderas i första hand. Du behöver inte stå ut ensam.
 
+## Blir oron starkare på kvällen?
+
+På MittPsyke finns en guide om kvällsångest, varför tankarna kan ta mer plats när dagen blir tystare och vad som kan hjälpa dig att landa. <a href="https://www.mittpsyke.se/guider/angest/angest-pa-kvallen" target="_blank" rel="noopener noreferrer">Läs om kvällsångest</a>.
+
 De vakna nattimmarna känns ofta ensamma, men du delar dem med oerhört många. Tankarna som snurrar är inte ett tecken på att något är fel med dig, utan på en kropp som har svårt att hitta bromsen just nu. Du behöver inte tvinga fram sömnen eller lösa det svåra i mörkret. Andas långsammare, lägg tankarna åt sidan till imorgon, och var snäll mot dig själv på vägen. Det mesta ser mjukare ut i dagsljus, och du behöver inte möta natten alldeles ensam.
