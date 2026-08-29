@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { ARTICLE_COLLECTIONS } from "../lib/articleCollections";
 
+export const prerender = true;
+
 // XML sitemap for search engines, prerendered at build time like the rest of
 // the static output.
 //
