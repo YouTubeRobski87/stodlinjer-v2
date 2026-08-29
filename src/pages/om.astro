@@ -1,0 +1,67 @@
+---
+export const prerender = true;
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import StructuredData from "../components/StructuredData.astro";
+import { absoluteUrl } from "../lib/structuredData";
+
+const path = "/om/";
+const url = absoluteUrl(path);
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${url}#webpage`,
+  name: "Om Stödlinjer",
+  description: "Stödlinjer.se hjälper dig att hitta stöd via telefon, chatt eller webben.",
+  url,
+};
+---
+
+<BaseLayout
+  title="Om Stödlinjer | Stödlinjer"
+  description="Stödlinjer.se hjälper dig att hitta stöd via telefon, chatt eller webben."
+>
+  <StructuredData data={structuredData} />
+  <SiteHeader />
+
+  <main id="main" class="page container">
+    <h1>Om Stödlinjer</h1>
+    <p>
+      Stödlinjer.se hjälper dig att hitta stöd via telefon, chatt eller webben när du behöver
+      någon att vända dig till.
+    </p>
+    <p>Stödlinjer är grundat av Robert Claesson och Johanna Fagerås.</p>
+    <p>
+      Frågor om sajten kan skickas till
+      <a href="mailto:support@mittpsyke.se">support@mittpsyke.se</a>.
+    </p>
+  </main>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: var(--content-max);
+    padding-block: var(--space-12) var(--space-16);
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 400;
+    line-height: 1.06;
+    letter-spacing: -0.01em;
+  }
+  p {
+    max-width: var(--measure);
+    margin-top: var(--space-5);
+    color: var(--muted);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  a {
+    color: var(--foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+</style>
