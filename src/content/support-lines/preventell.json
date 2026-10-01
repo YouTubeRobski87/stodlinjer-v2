@@ -26,6 +26,7 @@
       "channel": "phone",
       "label": "Telefon",
       "value": "020-66 77 88",
+      "note": "De utökade kvälls- och lördagstiderna gäller till och med 31 december 2026.",
       "openingHours": [
         {
           "days": [
@@ -37,6 +38,26 @@
           ],
           "open": "12:00",
           "close": "15:00",
+          "timezone": "Europe/Stockholm"
+        },
+        {
+          "days": [
+            "mon",
+            "tue",
+            "wed",
+            "thu",
+            "fri"
+          ],
+          "open": "17:00",
+          "close": "19:00",
+          "timezone": "Europe/Stockholm"
+        },
+        {
+          "days": [
+            "sat"
+          ],
+          "open": "12:00",
+          "close": "14:00",
           "timezone": "Europe/Stockholm"
         }
       ]
@@ -50,8 +71,10 @@
         {
           "days": [
             "mon",
+            "tue",
             "wed",
-            "thu"
+            "thu",
+            "fri"
           ],
           "open": "15:00",
           "close": "16:00",
@@ -106,7 +129,7 @@
     "featured": true,
     "priority": 72,
     "primaryLabel": "Ring 020-66 77 88",
-    "availabilityLabel": "Telefon: vardagar 12-15. Chatt: mån, ons och tors 15-16"
+    "availabilityLabel": "Telefon: vardagar 12-15 och 17-19 samt lördagar 12-14. De utökade kvälls- och lördagstiderna gäller till och med 31 december 2026. Anonym chatt: vardagar 15-16"
   },
   "metadata": {
     "lastVerified": "2026-06-04",
