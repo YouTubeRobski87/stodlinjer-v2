@@ -26,7 +26,7 @@
       "channel": "phone",
       "label": "Telefon",
       "value": "020-66 77 88",
-      "note": "De utökade kvälls- och lördagstiderna gäller till och med 31 december 2026.",
+      "note": "De utökade öppettiderna gäller från 1 september 2026 och i nuläget året ut.",
       "openingHours": [
         {
           "days": [
@@ -120,19 +120,19 @@
     "emergencyText": "Vid akut fara för liv, ring 112."
   },
   "source": {
-    "primaryUrl": "https://www.karolinska.se/preventell/",
-    "checkedAt": "2026-06-04",
-    "sourceUpdatedAt": "2026-05-11",
+    "primaryUrl": "https://preventell.se/",
+    "checkedAt": "2026-10-01",
+    "sourceUpdatedAt": "2026-09-01",
     "confidence": "high"
   },
   "display": {
     "featured": true,
     "priority": 72,
     "primaryLabel": "Ring 020-66 77 88",
-    "availabilityLabel": "Telefon: vardagar 12-15 och 17-19 samt lördagar 12-14. De utökade kvälls- och lördagstiderna gäller till och med 31 december 2026. Anonym chatt: vardagar 15-16"
+    "availabilityLabel": "Telefon: vardagar 12-15 och 17-19, lördagar 12-14. Anonym chatt: vardagar 15-16. De utökade öppettiderna gäller i nuläget året ut."
   },
   "metadata": {
-    "lastVerified": "2026-06-04",
-    "nextReview": "2026-12-04"
+    "lastVerified": "2026-10-01",
+    "nextReview": "2026-12-15"
   }
 }
