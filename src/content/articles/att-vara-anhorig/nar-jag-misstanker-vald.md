@@ -3,7 +3,7 @@ title: När du misstänker att någon utsätts för våld – hur du frågar
 description: Du anar något men vill inte lägga dig i eller göra det värre. Här är hur du öppnar samtalet, vad du säger, och hur du finns kvar även när svaret är nej.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: att-vara-anhorig
 tags: ["våld-i-nära-relationer", "närstående", "stötta-närstående", "bemötande", "säkerhet", "kvinnofridslinjen"]
 readingTime: 7 min

@@ -3,7 +3,7 @@ title: Trygghetsplan vid kris – en mall du fyller i medan du orkar
 description: När allt rasar är det svårt att tänka klart. En trygghetsplan är sex steg du skriver ner i förväg, så att du slipper komma på dem mitt i krisen.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: akut-och-kris
 tags: ["krisplan", "säkerhet", "självmordstankar", "suicidprevention", "akut", "söka-hjälp"]
 readingTime: 8 min

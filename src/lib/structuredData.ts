@@ -1,5 +1,5 @@
-export const SITE_URL = "https://www.stodlinjer.se";
-export const SITE_NAME = "Stödlinjer";
+export const SITE_URL = "https://hjalplinjer.se";
+export const SITE_NAME = "Hjälplinjer";
 
 export function absoluteUrl(path = "/"): string {
   return new URL(path, SITE_URL).href;
@@ -17,7 +17,7 @@ export function siteOrganization(): Record<string, unknown> {
 // Byline used on migrated editorial content that no single person authored.
 // It is the site itself, so it resolves to the Organization node already in
 // the graph rather than to a fabricated Person.
-export const EDITORIAL_AUTHOR = "Stödlinjers redaktion";
+export const EDITORIAL_AUTHOR = "Hjälplinjers redaktion";
 
 export function authorEntity(name: string): Record<string, unknown> {
   return name === EDITORIAL_AUTHOR

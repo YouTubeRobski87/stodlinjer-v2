@@ -52,18 +52,18 @@ const structuredData = {
       ...(contactPoints.length ? { contactPoint: contactPoints } : {}),
     },
     { "@id": `${url}#breadcrumb`, ...breadcrumbList([
-      { name: "Stödlinjer", path: "/" },
+      { name: "Hjälplinjer", path: "/" },
       { name: d.name, path },
     ]) },
   ],
 };
 ---
 
-<BaseLayout title={`${d.name} | Stödlinjer`} description={d.shortDescription}>
+<BaseLayout title={`${d.name} | Hjälplinjer`} description={d.shortDescription}>
   <StructuredData data={structuredData} />
   <header class="topbar">
     <div class="topbar__inner container--wide">
-      <a class="brand" href="/">Stödlinjer</a>
+      <a class="brand" href="/">Hjälplinjer</a>
       <ThemeToggle />
     </div>
   </header>

@@ -3,7 +3,7 @@ title: När någon får ett panikpåslag framför dig
 description: Det ser dramatiskt ut och du vet inte vad du ska göra. Här är vad som faktiskt hjälper, vad du ska undvika att säga och när det är läge att ringa 112.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: akut-och-kris
 tags: ["panikattack", "närstående", "stötta-närstående", "andning", "jordning", "bemötande"]
 readingTime: 7 min

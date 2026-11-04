@@ -1,6 +1,6 @@
 import { defineMiddleware } from "astro:middleware";
 
-const CANONICAL_ORIGIN = "https://www.stodlinjer.se";
+const CANONICAL_ORIGIN = "https://hjalplinjer.se";
 
 // Permanent v1 → v2 mappings for URLs reported by Google Search Console.
 // Keys are kept without a trailing slash so each mapping also covers the

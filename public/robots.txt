@@ -4,4 +4,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.stodlinjer.se/sitemap.xml
+Sitemap: https://hjalplinjer.se/sitemap.xml

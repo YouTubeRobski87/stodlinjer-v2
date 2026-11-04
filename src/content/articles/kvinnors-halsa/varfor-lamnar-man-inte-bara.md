@@ -3,7 +3,7 @@ title: Varför lämnar man inte bara? – psykologin bakom att stanna
 description: Frågan ställs ofta i god tro och landar nästan alltid som en anklagelse. Här är vad som faktiskt håller kvar en människa i en relation som skadar.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: kvinnors-halsa
 tags: ["våld-i-nära-relationer", "psykiskt-våld", "kontroll", "säkerhet", "skam", "kvinnofridslinjen"]
 readingTime: 8 min

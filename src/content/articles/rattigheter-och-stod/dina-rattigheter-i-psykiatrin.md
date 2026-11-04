@@ -3,7 +3,7 @@ title: Dina rättigheter i psykiatrin – utredning, behandling och bemötande
 description: Vad du faktiskt har rätt att kräva när du söker psykiatrisk vård – tider, utredning, en andra bedömning, och att få vara med och bestämma om din behandling.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: rattigheter-och-stod
 tags: ["patienträttigheter", "psykiatri", "vård", "rättigheter", "bemötande", "söka-hjälp"]
 readingTime: 8 min

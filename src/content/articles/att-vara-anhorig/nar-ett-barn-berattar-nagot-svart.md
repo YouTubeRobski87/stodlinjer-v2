@@ -3,7 +3,7 @@ title: När ett barn berättar något svårt – vad du säger i de första minu
 description: Din första reaktion avgör ofta om barnet berättar mer eller tar tillbaka allt. Här är vad som bygger trygghet, vad du bör undvika och vad du inte får lova.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: att-vara-anhorig
 tags: ["barn-som-anhörig", "trygg-vuxen", "lyssna", "validering", "bemötande", "orosanmälan"]
 readingTime: 8 min

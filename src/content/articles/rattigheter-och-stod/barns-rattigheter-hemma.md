@@ -3,7 +3,7 @@ title: Vad barn har rätt till när det finns våld, missbruk eller psykisk ohä
 description: Barn har egna rättigheter, oberoende av föräldrarnas. Här är vilket stöd samhället ska erbjuda, vem som ansvarar och hur ett barn kan söka hjälp själv.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: rattigheter-och-stod
 tags: ["barn-som-anhörig", "rättigheter", "socialtjänsten", "skola", "trygg-vuxen", "söka-hjälp"]
 readingTime: 8 min

@@ -1,4 +1,4 @@
-# Agentinstruktioner — Stödlinjer.se
+# Agentinstruktioner — Hjälplinjer.se
 
 Den här sajten läses av människor som mår dåligt och behöver hitta hjälp snabbt.
 Ett påhittat telefonnummer är inte en bugg här, det är någon som ringer fel när

@@ -3,7 +3,7 @@ title: Känslan av att vara en börda – och varför den ljuger
 description: Tanken att andra skulle ha det lättare utan dig känns som en insikt. Den är i själva verket ett symtom, och den går att känna igen och plocka isär.
 date: 2026-08-08
 updated: 2026-08-08
-author: Stödlinjers redaktion
+author: Hjälplinjers redaktion
 collection: forsta-ditt-maende
 tags: ["skam", "självkänsla", "självmordstankar", "självkritik", "ensamhet", "söka-hjälp"]
 readingTime: 7 min
