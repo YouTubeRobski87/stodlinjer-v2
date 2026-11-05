@@ -3,7 +3,7 @@ title: Fight, flight, freeze och fawn – nervsystemets fyra försvar
 description: Kroppen har fyra sätt att möta hot. Efter långvarig stress eller trauma kan de slå på i vardagen. Här är vad de gör, hur de känns och vad som lugnar ner dem.
 date: 2026-08-08
 updated: 2026-08-08
-author: Hjälplinjers redaktion
+author: Stödlinjers redaktion
 collection: forsta-ditt-maende
 tags: ["stressreaktion", "ångest", "dissociation", "gränser", "känsloreglering", "jordning"]
 readingTime: 7 min

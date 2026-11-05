@@ -3,7 +3,7 @@ title: Kontaktförbud, skyddat boende och skyddade personuppgifter
 description: Tre olika skydd för dig som är hotad eller förföljd. Vad de faktiskt ger, vad de inte ger, vem som beslutar och hur du ansöker om vart och ett.
 date: 2026-08-08
 updated: 2026-08-08
-author: Hjälplinjers redaktion
+author: Stödlinjers redaktion
 collection: rattigheter-och-stod
 tags: ["säkerhet", "våld-i-nära-relationer", "rättigheter", "socialtjänsten", "boende", "kvinnofridslinjen"]
 readingTime: 9 min

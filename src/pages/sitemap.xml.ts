@@ -15,7 +15,7 @@ export const prerender = true;
 
 // Fallback if `site` is somehow unset in astro.config.mjs; the config value
 // wins whenever it is present.
-const FALLBACK_SITE = "https://hjalplinjer.se";
+const FALLBACK_SITE = "https://www.stodlinjer.se";
 
 type SitemapEntry = {
   /** Root-relative path, always with a leading and trailing slash. */

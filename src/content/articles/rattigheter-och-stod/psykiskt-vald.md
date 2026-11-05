@@ -3,7 +3,7 @@ title: Psykiskt våld – de sår ingen kan se
 description: Inga blåmärken, inga bevis, ingen som frågar. Ändå visar forskningen att psykiskt våld kan skada lika djupt som slag – och ibland djupare.
 date: 2026-08-08
 updated: 2026-08-08
-author: Hjälplinjers redaktion
+author: Stödlinjers redaktion
 collection: rattigheter-och-stod
 tags: ["psykiskt-våld", "våld-i-nära-relationer", "kontroll", "skam", "säkerhet", "söka-hjälp"]
 readingTime: 6 min

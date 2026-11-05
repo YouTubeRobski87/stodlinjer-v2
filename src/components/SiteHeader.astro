@@ -3,7 +3,7 @@ import ThemeToggle from "./ThemeToggle.astro";
 import PaletteSwitcher from "./PaletteSwitcher.astro";
 
 // Shared sticky topbar for every page (homepage included). The two wordmark
-// links — Hjälplinjer (home) and Artiklar — sit together on the left, doubling
+// links — Stödlinjer (home) and Artiklar — sit together on the left, doubling
 // as both brand and primary nav; the active page carries an accent underline.
 // The palette switcher, theme toggle and chat CTA cluster on the right.
 const path = Astro.url.pathname;
@@ -14,7 +14,7 @@ const isArticles = path.startsWith("/artiklar");
 <header class="topbar">
   <div class="topbar__inner container--wide">
     <nav class="topbar__left" aria-label="Huvudmeny">
-      <a class="nav__brand" href="/" aria-current={isHome ? "page" : undefined}>Hjälplinjer</a>
+      <a class="nav__brand" href="/" aria-current={isHome ? "page" : undefined}>Stödlinjer</a>
       <span class="nav__sep" aria-hidden="true">/</span>
       <a class="nav__brand" href="/artiklar/" aria-current={isArticles ? "page" : undefined}>Artiklar</a>
     </nav>

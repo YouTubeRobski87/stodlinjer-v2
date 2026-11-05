@@ -1,5 +1,5 @@
 const baseUrl = process.env.BASE_URL ?? "http://localhost:4321";
-const canonicalOrigin = "https://hjalplinjer.se";
+const canonicalOrigin = "https://www.stodlinjer.se";
 
 const redirects = {
   "/sidor/cookiepolicy": "/cookiepolicy/",

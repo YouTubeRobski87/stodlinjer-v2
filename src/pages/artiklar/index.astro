@@ -31,7 +31,7 @@ const structuredData = {
       breadcrumb: { "@id": `${url}#breadcrumb` },
     },
     { "@id": `${url}#breadcrumb`, ...breadcrumbList([
-      { name: "Hjälplinjer", path: "/" },
+      { name: "Stödlinjer", path: "/" },
       { name: "Artiklar", path },
     ]) },
   ],
@@ -39,7 +39,7 @@ const structuredData = {
 ---
 
 <BaseLayout
-  title="Artiklar | Hjälplinjer"
+  title="Artiklar | Stödlinjer"
   description="Texter om psykisk hälsa, kriser, beroende, sorg, rättigheter och att vara anhörig – skrivna för att förstå och orka."
 >
   <StructuredData data={structuredData} />
