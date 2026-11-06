@@ -5,11 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/verify-ga4-build.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "test": "node --experimental-strip-types src/lib/crisisDetect.test.ts && node --experimental-strip-types src/lib/verifiedCatalog.test.ts",
-    "perf:audit": "node scripts/performance-audit.mjs"
+    "perf:audit": "node scripts/performance-audit.mjs",
+    "verify:analytics": "node scripts/verify-ga4-build.mjs"
   },
   "engines": {
     "node": ">=22.6.0"
