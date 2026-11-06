@@ -44,6 +44,14 @@ const LEGACY_REDIRECTS: Readonly<Record<string, string>> = {
     "/artiklar/verktyg-och-sjalvhjalp/jordning-nar-du-tappar-fotfastet/",
   "/artiklar/rattigheter-skydd/vad-socialtjansten-maste-gora-nar-nagon-riskerar-att-bli-eller-redan-ar-hemlos":
     "/artiklar/rattigheter-och-stod/hemlos-utan-att-synas/",
+  "/artiklar/rattigheter-skydd/vad-har-jag-ratt-till-fran-socialtjansten-nar-jag-inte-har-nagonstans-att-bo":
+    "/artiklar/rattigheter-och-stod/hemlos-utan-att-synas/",
+  "/artiklar/rattigheter-skydd/nar-jag-inte-orkar-sjalv-kan-nagon-hjalpa-mig-i-kontakt-med-socialtjansten":
+    "/artiklar/rattigheter-och-stod/personligt-ombud/",
+  "/artiklar/rattigheter-skydd/kontaktforbud-skyddat-boende-och-skyddade-personuppgifter-sa-funkar-det":
+    "/artiklar/rattigheter-och-stod/kontaktforbud-och-skyddat-boende/",
+  "/artiklar/fordjupning/varfor-det-kanns-som-att-du-ar-en-borda-och-hur-du-vet-att-du-inte-ar-det":
+    "/artiklar/forsta-ditt-maende/kanslan-av-att-vara-en-borda/",
   "/artiklar/fakta-myter/myt-att-soka-hjalp-ar-ett-tecken-pa-svaghet":
     "/artiklar/rattigheter-och-stod/att-be-om-hjalp-nar-stoltheten-star-i-vagen/",
   "/stodkompassen-": "/chatt/",

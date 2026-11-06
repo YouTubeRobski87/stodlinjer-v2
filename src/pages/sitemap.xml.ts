@@ -67,6 +67,9 @@ export const GET: APIRoute = async ({ site }) => {
     { path: "/" },
     { path: "/artiklar/" },
     { path: "/chatt/" },
+    { path: "/om/" },
+    { path: "/integritetspolicy/" },
+    { path: "/cookiepolicy/" },
   ];
 
   const collectionPages: SitemapEntry[] = ARTICLE_COLLECTIONS.map((collection) => ({

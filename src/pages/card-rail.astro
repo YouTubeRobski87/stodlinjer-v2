@@ -18,7 +18,9 @@ const normal = cards.find(
     c !== noPhone,
 );
 
-const picked = [normal, emergency, noPhone].filter(Boolean);
+const picked = [normal, emergency, noPhone].filter(
+  (card): card is (typeof cards)[number] => Boolean(card),
+);
 const seen = new Set(picked);
 for (const c of cards) {
   if (picked.length >= 3) break;
@@ -37,7 +39,7 @@ const variants = [
 ] as const;
 ---
 
-<BaseLayout title="Card rail mockups">
+<BaseLayout title="Card rail mockups" noindex>
   <main class="wrap">
     <header class="intro">
       <h1>Border-left rail · variants</h1>

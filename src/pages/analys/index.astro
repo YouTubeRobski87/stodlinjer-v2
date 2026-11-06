@@ -22,7 +22,7 @@ const alwaysOpen = lines.filter((line) =>
 ).length;
 const withChat = lines.filter((line) => line.data.contactMethods.some((method) => method.channel === "chat")).length;
 const withPhone = lines.filter((line) => line.data.contactMethods.some((method) => method.channel === "phone")).length;
-const verified = lines.filter((line) => line.data.lastVerified).length;
+const verified = lines.filter((line) => line.data.metadata.lastVerified).length;
 const maximum = Math.max(...categoryRows.map((row) => row.count));
 const today = new Intl.DateTimeFormat("sv-SE", { dateStyle: "long" }).format(new Date());
 ---
@@ -31,6 +31,7 @@ const today = new Intl.DateTimeFormat("sv-SE", { dateStyle: "long" }).format(new
   title="Stödlinjer — analysöversikt"
   description="En redaktionell analys av Stödlinjers katalog: täckning, kontaktvägar och tillgänglighet."
   ogImage="/og.png"
+  noindex
 >
   <main class="page">
     <header class="masthead">

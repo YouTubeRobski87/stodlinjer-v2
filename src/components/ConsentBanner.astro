@@ -157,7 +157,10 @@
       }
 
       if (choice === "granted") {
-        window.gtag?.("consent", "update", { analytics_storage: "granted" });
+        const analyticsWindow = window as Window & {
+          gtag?: (...args: unknown[]) => void;
+        };
+        analyticsWindow.gtag?.("consent", "update", { analytics_storage: "granted" });
       }
 
       banner.hidden = true;

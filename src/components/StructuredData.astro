@@ -16,4 +16,4 @@ const json = JSON.stringify(data)
   .replace(/\u2029/g, "\\u2029");
 ---
 
-<script type="application/ld+json" set:html={json}></script>
+<script is:inline type="application/ld+json" set:html={json}></script>
